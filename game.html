@@ -10,7 +10,6 @@
     padding: 0;
     box-sizing: border-box;
 }
-
 body {
     background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
     font-family: 'Arial', sans-serif;
@@ -21,7 +20,6 @@ body {
     -webkit-user-select: none;
     -webkit-touch-callout: none;
 }
-
 #gameContainer {
     position: relative;
     width: 100vw;
@@ -29,14 +27,12 @@ body {
     background: linear-gradient(to bottom, #87CEEB 0%, #98FB98 50%, #90EE90 100%);
     overflow: hidden;
 }
-
 #gameCanvas {
     display: block;
     background: linear-gradient(to bottom, #87CEEB 0%, #98FB98 50%, #90EE90 100%);
     cursor: crosshair;
     touch-action: none;
 }
-
 .hud {
     position: absolute;
     top: 0;
@@ -54,18 +50,15 @@ body {
     border-bottom: 2px solid rgba(255, 255, 255, 0.2);
     min-height: 40px;
 }
-
 .hud-left, .hud-center, .hud-right {
     display: flex;
     gap: 30px;
     align-items: center;
 }
-
 .hud-center {
     flex: 1;
     justify-content: center;
 }
-
 .hud-stat {
     display: flex;
     align-items: center;
@@ -73,7 +66,6 @@ body {
     font-weight: 500;
     white-space: nowrap;
 }
-
 .controls {
     position: absolute;
     bottom: 20px;
@@ -85,16 +77,14 @@ body {
     font-size: 14px;
     z-index: 100;
 }
-
 .mobile-controls {
     position: absolute;
-    bottom: 20px;
+    top: 20px;
     right: 20px;
     display: none;
     gap: 10px;
     z-index: 100;
 }
-
 .touch-button {
     width: 60px;
     height: 60px;
@@ -111,23 +101,19 @@ body {
     touch-action: manipulation;
     transition: all 0.2s ease;
 }
-
 .touch-button:active {
     transform: scale(0.9);
     background: rgba(76, 175, 80, 1);
 }
-
 .touch-button.special-active {
     background: rgba(255, 215, 0, 0.9);
     animation: pulse 0.3s ease-in-out infinite alternate;
     box-shadow: 0 0 20px rgba(255, 215, 0, 0.8);
 }
-
 .touch-button.special-cooldown {
     background: rgba(128, 128, 128, 0.5);
     cursor: not-allowed;
 }
-
 .power-up-notification {
     position: absolute;
     top: 60px;
@@ -144,7 +130,6 @@ body {
     border: 2px solid #FFD700;
     animation: powerUpText 2s ease-out forwards;
 }
-
 .power-up-timers {
     position: absolute;
     top: 70px;
@@ -154,7 +139,6 @@ body {
     flex-direction: column;
     gap: 10px;
 }
-
 .power-up-timer {
     width: 50px;
     height: 50px;
@@ -167,7 +151,6 @@ body {
     border-radius: 50%;
     border: 2px solid rgba(255, 255, 255, 0.3);
 }
-
 .timer-progress {
     position: absolute;
     top: -2px;
@@ -179,51 +162,43 @@ body {
     transform: rotate(-90deg);
     transition: none;
 }
-
 .game-info {
     max-width: 800px;
     text-align: left;
     margin: 20px 0;
 }
-
 .game-info h2 {
     color: #FFD700;
     margin-bottom: 15px;
     font-size: 1.5em;
     text-align: center;
 }
-
 .info-grid {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
     gap: 20px;
     margin: 20px 0;
 }
-
 .info-card {
     background: rgba(0, 0, 0, 0.7);
     padding: 20px;
     border-radius: 15px;
     border: 2px solid rgba(255, 255, 255, 0.2);
 }
-
 .info-card h3 {
     color: #4CAF50;
     margin-bottom: 10px;
     font-size: 1.2em;
 }
-
 .info-card ul {
     list-style: none;
     padding: 0;
 }
-
 .info-card li {
     margin: 8px 0;
     padding-left: 25px;
     position: relative;
 }
-
 .info-card li::before {
     content: "•";
     color: #FFD700;
@@ -231,14 +206,12 @@ body {
     position: absolute;
     left: 0;
 }
-
 .controls-grid {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
     gap: 15px;
     margin: 15px 0;
 }
-
 .control-item {
     background: rgba(255, 255, 255, 0.1);
     padding: 15px;
@@ -246,17 +219,14 @@ body {
     text-align: center;
     border: 1px solid rgba(255, 255, 255, 0.2);
 }
-
 .control-emoji {
     font-size: 2em;
     display: block;
     margin-bottom: 10px;
 }
-
 .shake-screen {
     animation: screenShake 0.6s ease-in-out;
 }
-
 .game-over {
     position: absolute;
     top: 50%;
@@ -270,13 +240,11 @@ body {
     z-index: 200;
     display: none;
 }
-
 .game-over h2 {
     margin-bottom: 20px;
     font-size: 2em;
     color: #4CAF50;
 }
-
 .game-over button {
     background: #4CAF50;
     color: white;
@@ -288,11 +256,23 @@ body {
     margin: 10px;
     transition: background 0.3s;
 }
-
 .game-over button:hover {
     background: #45a049;
 }
-
+.share-btn {
+    background: #2196F3;
+    color: white;
+    border: none;
+    padding: 15px 30px;
+    border-radius: 10px;
+    font-size: 16px;
+    cursor: pointer;
+    margin: 10px;
+    transition: background 0.3s;
+}
+.share-btn:hover {
+    background: #1976D2;
+}
 .start-screen {
     position: absolute;
     top: 0;
@@ -302,7 +282,6 @@ body {
     background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
     display: flex;
     flex-direction: column;
-    justify-content: center;
     align-items: center;
     z-index: 300;
     color: white;
@@ -310,20 +289,28 @@ body {
     overflow-y: auto;
     padding: 20px;
 }
-
+.start-screen-header {
+    margin-bottom: 30px;
+}
+.start-screen-content {
+    flex: 1;
+    width: 100%;
+    max-width: 800px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
 .start-screen h1 {
     font-size: 3em;
     margin-bottom: 20px;
     text-shadow: 2px 2px 4px rgba(0,0,0,0.5);
 }
-
 .start-screen p {
     font-size: 1.2em;
     margin-bottom: 30px;
     max-width: 600px;
     line-height: 1.6;
 }
-
 .start-btn {
     background: #4CAF50;
     color: white;
@@ -338,13 +325,11 @@ body {
     box-shadow: 0 4px 15px rgba(0,0,0,0.3);
     margin: 20px 0;
 }
-
 .start-btn:hover {
     background: #45a049;
     transform: translateY(-2px);
     box-shadow: 0 6px 20px rgba(0,0,0,0.4);
 }
-
 .instructions {
     position: absolute;
     bottom: 50px;
@@ -355,23 +340,19 @@ body {
     border-radius: 10px;
     font-size: 14px;
 }
-
 @keyframes bounce {
     0%, 20%, 53%, 80%, 100% { transform: translate3d(0,0,0); }
     40%, 43% { transform: translate3d(0, -10px, 0); }
     70% { transform: translate3d(0, -5px, 0); }
     90% { transform: translate3d(0, -2px, 0); }
 }
-
 .bounce {
     animation: bounce 1s ease infinite;
 }
-
 @keyframes pulse {
     from { transform: scale(1); }
     to { transform: scale(1.1); }
 }
-
 @keyframes powerUpText {
     0% {
         opacity: 0;
@@ -390,7 +371,6 @@ body {
         transform: translateX(-50%) translateY(-10px);
     }
 }
-
 @keyframes screenShake {
     0%, 100% { transform: translate(0, 0); }
     10% { transform: translate(-3px, -2px); }
@@ -403,7 +383,6 @@ body {
     80% { transform: translate(1px, 3px); }
     90% { transform: translate(-2px, -1px); }
 }
-
 @media (max-width: 768px) {
     .controls {
         font-size: 12px;
@@ -468,1021 +447,181 @@ body {
 </style>
 </head>
 <body>
-
 <div id="gameContainer">
     <!-- Start Screen -->
     <div id="startScreen" class="start-screen">
-        <h1>🏖️ Wexford Adventure</h1>
-        <p>
-            Explore the beautiful beaches and attractions of Wexford! 
-            Collect seashells, avoid obstacles, and discover famous Irish landmarks in this adventure.
-        </p>
-        
-        <div class="game-info">
-            <h2>🎮 How to Play</h2>
-            
-            <div class="info-grid">
-                <div class="info-card">
-                    <h3>🎯 Objective</h3>
-                    <ul>
-                        <li>Collect seashells for points</li>
-                        <li>Visit landmarks for big bonuses</li>
-                        <li>Avoid obstacles to stay alive</li>
-                        <li>Build combos for higher scores</li>
-                        <li>Survive as long as possible</li>
-                    </ul>
-                </div>
-                
-                <div class="info-card">
-                    <h3>🎁 Power-Ups</h3>
-                    <ul>
-                        <li>🧲 Magnet - Attracts seashells</li>
-                        <li>🛡️ Shield - Blocks one hit</li>
-                        <li>⭐ Bonus - Instant +100 points</li>
-                        <li>❤️ Extra Life - Restores health</li>
-                    </ul>
-                </div>
-                
-                <div class="info-card">
-                    <h3>🎪 Special Features</h3>
-                    <ul>
-                        <li>⚡ Lightning - Destroys obstacles</li>
-                        <li>🔥 Combo system - Up to 5x multiplier</li>
-                        <li>🏰 Famous Wexford locations</li>
-                        <li>🌊 Beautiful beach atmosphere</li>
-                    </ul>
-                </div>
-                
-                <div class="info-card">
-                    <h3>📊 Scoring</h3>
-                    <ul>
-                        <li>Seashells: 10 points (+ combo)</li>
-                        <li>Landmarks: 50 points (+ combo)</li>
-                        <li>Lightning kills: 25 points each</li>
-                        <li>Power-ups: 20-30 bonus points</li>
-                    </ul>
-                </div>
-            </div>
-            
-            <h2>🎮 Controls</h2>
-            <div class="controls-grid">
-                <div class="control-item">
-                    <span class="control-emoji">🖱️</span>
-                    <div><strong>Mouse/Touch</strong></div>
-                    <div>Move your character</div>
-                </div>
-                <div class="control-item">
-                    <span class="control-emoji">⚡</span>
-                    <div><strong>Lightning Button</strong></div>
-                    <div>Destroy obstacles (3s cooldown)</div>
-                </div>
-                <div class="control-item">
-                    <span class="control-emoji">⏸️</span>
-                    <div><strong>Pause Button</strong></div>
-                    <div>Pause/resume game</div>
-                </div>
-                <div class="control-item">
-                    <span class="control-emoji">🚀</span>
-                    <div><strong>Mouse Hold</strong></div>
-                    <div>Boost speed (desktop only)</div>
-                </div>
-            </div>
+        <div class="start-screen-header">
+            <h1> 🏖️  Wexford Adventure</h1>
+            <p>
+                Explore the beautiful beaches and attractions of Wexford!<br>
+                Collect seashells, avoid obstacles, and discover famous Irish landmarks.
+            </p>
+            <!-- FIX: Removed inline onclick event -->
+            <button class="start-btn bounce">Start Adventure</button>
         </div>
         
-        <button class="start-btn bounce" onclick="window.startGame()">Start Adventure</button>
-        
-        <div class="instructions">
-            <div id="desktop-instructions">🖱️ Move with mouse • ⚡ Lightning power • 🏖️ Collect seashells • 🏨 Visit landmarks • ⚠️ Avoid obstacles</div>
-            <div id="mobile-instructions" style="display: none;">📱 Touch to move • ⚡ Lightning button • 🏖️ Collect seashells • 🏨 Visit landmarks • ⚠️ Avoid obstacles</div>
+        <div class="start-screen-content">
+            <div class="game-info">
+                <h2> 🎮  How to Play</h2>
+                
+                <div class="info-grid">
+                    <div class="info-card">
+                        <h3> 🎯  Objective</h3>
+                        <ul>
+                            <li>Collect seashells for points</li>
+                            <li>Visit landmarks for big bonuses</li>
+                            <li>Avoid obstacles to stay alive</li>
+                            <li>Build combos for higher scores</li>
+                            <li>Survive as long as possible</li>
+                        </ul>
+                    </div>
+                    
+                    <div class="info-card">
+                        <h3> 🎁  Power-Ups</h3>
+                        <ul>
+                            <li> 🧲  Magnet - Attracts seashells</li>
+                            <li> 🛡️  Shield - Blocks one hit</li>
+                            <li> ⭐  Bonus - Instant +100 points</li>
+                            <li> ❤️  Extra Life - Restores health</li>
+                        </ul>
+                    </div>
+                    
+                    <div class="info-card">
+                        <h3> 🎪  Special Features</h3>
+                        <ul>
+                            <li> 💣  Atomic Bomb - Destroys obstacles</li>
+                            <li> 🔥  Combo system - Up to 5x multiplier</li>
+                            <li> 🏰  Famous Wexford locations</li>
+                            <li> 🌊  Beautiful beach atmosphere</li>
+                        </ul>
+                    </div>
+                    
+                    <div class="info-card">
+                        <h3> 📊  Scoring</h3>
+                        <ul>
+                            <li>Seashells: 10 points (+ combo)</li>
+                            <li>Landmarks: 50 points (+ combo)</li>
+                            <li>Bomb kills: 25 points each</li>
+                            <li>Power-ups: 20-30 bonus points</li>
+                        </ul>
+                    </div>
+                </div>
+                
+                <h2> 🎮  Controls</h2>
+                <div class="controls-grid">
+                    <div class="control-item">
+                        <span class="control-emoji"> 🖱️ </span>
+                        <div><strong>Mouse/Touch</strong></div>
+                        <div>Move your character</div>
+                    </div>
+                    <div class="control-item">
+                        <span class="control-emoji"> 💣 </span>
+                        <div><strong>Atomic Bomb</strong></div>
+                        <div>Destroy obstacles (3s cooldown)</div>
+                    </div>
+                    <div class="control-item">
+                        <span class="control-emoji"> 🚀 </span>
+                        <div><strong>Mouse Hold</strong></div>
+                        <div>Boost speed (desktop only)</div>
+                    </div>
+                </div>
+            </div>
         </div>
     </div>
-
     <!-- Game Canvas -->
     <canvas id="gameCanvas"></canvas>
-
     <!-- HUD -->
     <div class="hud">
         <div class="hud-left">
-            <div class="hud-stat">🏖️ <span id="shells">0</span></div>
-            <div class="hud-stat">🏆 <span id="score">0</span></div>
-            <div class="hud-stat">❤️ <span id="lives">3</span></div>
+            <div class="hud-stat"> 🏖️  <span id="shells">0</span></div>
+            <div class="hud-stat"> 🏆  <span id="score">0</span></div>
+            <div class="hud-stat"> ❤️  <span id="lives">3</span></div>
         </div>
         <div class="hud-center">
-            <div class="hud-stat">📍 <span id="location">Morriscastle Beach</span></div>
-            <div class="hud-stat" id="combo-display" style="display: none;">🔥 <span id="combo">1.0x</span></div>
+            <div class="hud-stat"> 📍  <span id="location">Morriscastle Beach</span></div>
+            <div class="hud-stat" id="combo-display" style="display: none;"> 🔥  <span id="combo">1.0x</span></div>
         </div>
         <div class="hud-right">
             <!-- Reserved for future stats -->
         </div>
     </div>
-
     <!-- Power-up Timers -->
     <div class="power-up-timers" id="powerUpTimers"></div>
-
     <!-- Controls -->
-    <div class="controls">
+    <div class="controls" style="display: none;">
         <div><strong>Controls:</strong></div>
         <div id="desktop-controls">
-            <div>🖱️ Move: Mouse</div>
-            <div>🏃 Boost: Hold Click</div>
-            <div>⏸️ Pause: Space</div>
+            <div> 🖱️  Move: Mouse</div>
+            <div> 🏃  Boost: Hold Click</div>
         </div>
         <div id="mobile-controls-text" style="display: none;">
-            <div>📱 Move: Touch screen</div>
-            <div>⚡ Special: Lightning power</div>
-            <div>⏸️ Pause: Pause button</div>
+            <div> 📱  Move: Touch screen</div>
+            <div> 💣  Special: Atomic bomb</div>
         </div>
     </div>
-
     <!-- Mobile Touch Controls -->
     <div class="mobile-controls">
-        <div class="touch-button" id="pauseBtn" ontouchstart="window.togglePause()" onclick="window.togglePause()">⏸️</div>
-        <div class="touch-button" id="specialBtn" 
-             ontouchstart="window.activateSpecial(event)" 
-             onclick="window.activateSpecial(event)">⚡</div>
+        <!-- FIX: Removed inline ontouchstart and onclick events -->
+        <div class="touch-button" id="specialBtn"> 💣 </div>
     </div>
-
     <!-- Game Over Screen -->
     <div id="gameOverScreen" class="game-over">
         <h2 id="endTitle">Game Over!</h2>
         <div id="finalStats">
-            <p>🏆 Final Score: <span id="finalScore">0</span></p>
-            <p>🏖️ Seashells Collected: <span id="finalShells">0</span></p>
-            <p>📍 Locations Visited: <span id="finalLocations">0</span></p>
+            <p> 🏆  Final Score: <span id="finalScore">0</span></p>
+            <p> 🏖️  Seashells Collected: <span id="finalShells">0</span></p>
+            <p> 📍  Locations Visited: <span id="finalLocations">0</span></p>
         </div>
-        <button onclick="window.restartGame()">Play Again</button>
-        <button onclick="window.showStartScreen()">Main Menu</button>
+        <!-- FIX: Changed to call functions directly instead of on window -->
+        <button onclick="restartGame()">Play Again</button>
+        <button onclick="showStartScreen()">Main Menu</button>
+        <button class="share-btn" onclick="shareScore()"> 📱  Share Score</button>
     </div>
 </div>
-
 <script>
-// Game variables
-const canvas = document.getElementById('gameCanvas');
-const ctx = canvas.getContext('2d');
+// Wait for the DOM to be fully loaded before running any script
+document.addEventListener('DOMContentLoaded', function() {
 
-// Detect if device supports touch
-const isTouchDevice = 'ontouchstart' in window || navigator.maxTouchPoints > 0;
-
-// Set canvas size
-canvas.width = window.innerWidth;
-canvas.height = window.innerHeight;
-
-// Show appropriate controls
-if (isTouchDevice) {
-    document.getElementById('desktop-controls').style.display = 'none';
-    document.getElementById('mobile-controls-text').style.display = 'block';
-    document.getElementById('desktop-instructions').style.display = 'none';
-    document.getElementById('mobile-instructions').style.display = 'block';
-}
-
-// Game state
-let gameState = 'start';
-let gameRunning = false;
-let lastTime = 0;
-
-// Player object
-const player = {
-    x: canvas.width / 2,
-    y: canvas.height - 100,
-    width: 30,
-    height: 30,
-    speed: 5,
-    boosting: false,
-    color: '#FF6B6B',
-    magnetRange: 0,
-    shield: false,
-    shieldTime: 0
-};
-
-// Game stats
-let stats = {
-    shells: 0,
-    score: 0,
-    lives: 3,
-    locationsVisited: 0,
-    currentLocation: 'Morriscastle Beach',
-    specialCooldown: 0,
-    comboMultiplier: 1,
-    comboTime: 0
-};
-
-// Game objects arrays
-let seashells = [];
-let obstacles = [];
-let landmarks = [];
-let particles = [];
-let powerUps = [];
-let lightningBolts = [];
-let activePowerUps = {};
-
-// Wexford locations
-const locations = [
-    'Morriscastle Beach',
-    'Kilmuckridge Trail', 
-    'Secret Valley Wildlife Park',
-    'Wells House & Gardens',
-    'Enniscorthy Castle',
-    'Wexford Town'
-];
-
-// Vibrate phone function
-function vibratePhone() {
-    if ('vibrate' in navigator) {
-        navigator.vibrate([200, 100, 200]);
-    }
-}
-
-// Show power-up notification
-function showPowerUpNotification(powerUp) {
-    const notification = document.createElement('div');
-    notification.className = 'power-up-notification';
+    // Game variables
+    const canvas = document.getElementById('gameCanvas');
+    const ctx = canvas.getContext('2d');
     
-    let message = '';
-    switch(powerUp.type) {
-        case 'magnet':
-            message = '🧲 Magnet Activated';
-            break;
-        case 'shield':
-            message = '🛡️ Shield Activated';
-            break;
-        case 'points':
-            message = '⭐ Bonus Points';
-            break;
-        case 'life':
-            message = '❤️ Extra Life';
-            break;
+    // Detect if device supports touch
+    const isTouchDevice = 'ontouchstart' in window || navigator.maxTouchPoints > 0;
+    
+    // Set canvas size
+    canvas.width = window.innerWidth;
+    canvas.height = window.innerHeight;
+    
+    // Show appropriate controls
+    if (isTouchDevice) {
+        // These elements exist in the HTML
+        document.getElementById('desktop-controls').style.display = 'none';
+        document.getElementById('mobile-controls-text').style.display = 'block';
+        // FIX: Removed references to non-existent 'desktop-instructions' and 'mobile-instructions' elements
     }
     
-    notification.textContent = message;
-    document.getElementById('gameContainer').appendChild(notification);
+    // Game state
+    let gameState = 'start';
+    let gameRunning = false;
+    let lastTime = 0;
     
-    setTimeout(() => {
-        if (notification.parentNode) {
-            notification.parentNode.removeChild(notification);
-        }
-    }, 2000);
-}
-
-// Add power-up timer
-function addPowerUpTimer(type, duration, emoji) {
-    const timersContainer = document.getElementById('powerUpTimers');
-    const timer = document.createElement('div');
-    timer.className = 'power-up-timer';
-    timer.id = `timer-${type}`;
-    
-    timer.innerHTML = `
-        <div class="timer-progress" id="progress-${type}"></div>
-        <span>${emoji}</span>
-    `;
-    
-    timersContainer.appendChild(timer);
-    
-    // Store timer info
-    activePowerUps[type] = {
-        element: timer,
-        duration: duration,
-        maxDuration: duration
+    // Player object
+    const player = {
+        x: canvas.width / 2,
+        y: canvas.height - 100,
+        width: 30,
+        height: 30,
+        speed: 5,
+        boosting: false,
+        color: '#FF6B6B',
+        magnetRange: 0,
+        shield: false,
+        shieldTime: 0
     };
     
-    updatePowerUpTimer(type);
-}
-
-// Update power-up timer
-function updatePowerUpTimer(type) {
-    const powerUp = activePowerUps[type];
-    if (!powerUp) return;
-    
-    const progress = powerUp.element.querySelector(`#progress-${type}`);
-    const percentage = (powerUp.duration / powerUp.maxDuration) * 100;
-    
-    // Update circular progress
-    progress.style.border = '2px solid transparent';
-    progress.style.borderTopColor = '#FFD700';
-    progress.style.background = `conic-gradient(#FFD700 ${percentage}%, transparent ${percentage}%)`;
-    progress.style.mask = 'radial-gradient(circle, transparent 19px, black 21px)';
-    progress.style.webkitMask = 'radial-gradient(circle, transparent 19px, black 21px)';
-}
-
-// Remove power-up timer
-function removePowerUpTimer(type) {
-    const powerUp = activePowerUps[type];
-    if (powerUp && powerUp.element.parentNode) {
-        powerUp.element.parentNode.removeChild(powerUp.element);
-        delete activePowerUps[type];
-    }
-}
-
-// Apply power-up
-function applyPowerUp(powerUp) {
-    showPowerUpNotification(powerUp);
-    
-    switch(powerUp.type) {
-        case 'magnet':
-            player.magnetRange = powerUp.duration;
-            stats.score += 20;
-            addPowerUpTimer('magnet', powerUp.duration, '🧲');
-            break;
-        case 'shield':
-            player.shield = true;
-            player.shieldTime = powerUp.duration;
-            stats.score += 30;
-            addPowerUpTimer('shield', powerUp.duration, '🛡️');
-            break;
-        case 'points':
-            stats.score += powerUp.value;
-            break;
-        case 'life':
-            if (stats.lives < 5) {
-                stats.lives += powerUp.value;
-            } else {
-                stats.score += 100;
-            }
-            break;
-    }
-}
-
-// Initialize game
-function init() {
-    for (let i = 0; i < 5; i++) {
-        createSeashell();
-    }
-    for (let i = 0; i < 3; i++) {
-        createObstacle();
-    }
-    createLandmark();
-    setupEventListeners();
-}
-
-// Create seashell
-function createSeashell() {
-    seashells.push({
-        x: Math.random() * (canvas.width - 20),
-        y: -20,
-        width: 15,
-        height: 15,
-        speed: 2 + Math.random() * 2,
-        collected: false,
-        emoji: ['🐚', '🦪', '⭐'][Math.floor(Math.random() * 3)]
-    });
-}
-
-// Create obstacle
-function createObstacle() {
-    obstacles.push({
-        x: Math.random() * (canvas.width - 30),
-        y: -30,
-        width: 25,
-        height: 25,
-        speed: 1.5 + Math.random() * 2,
-        emoji: ['🗿', '🪨', '🦀'][Math.floor(Math.random() * 3)]
-    });
-}
-
-// Create landmark
-function createLandmark() {
-    landmarks.push({
-        x: Math.random() * (canvas.width - 40),
-        y: -40,
-        width: 35,
-        height: 35,
-        speed: 1,
-        visited: false,
-        emoji: ['🏨', '🏰', '🎡', '🌸', '🎭', '🍦'][Math.floor(Math.random() * 6)],
-        name: locations[Math.floor(Math.random() * locations.length)]
-    });
-}
-
-// Create power-up
-function createPowerUp() {
-    const powerUpTypes = [
-        { emoji: '🧲', type: 'magnet', duration: 300 },
-        { emoji: '🛡️', type: 'shield', duration: 180 },
-        { emoji: '⭐', type: 'points', value: 100 },
-        { emoji: '❤️', type: 'life', value: 1 }
-    ];
-    
-    const powerUp = powerUpTypes[Math.floor(Math.random() * powerUpTypes.length)];
-    powerUps.push({
-        x: Math.random() * (canvas.width - 25),
-        y: -25,
-        width: 20,
-        height: 20,
-        speed: 1.5,
-        ...powerUp,
-        collected: false
-    });
-}
-
-// Create lightning bolt
-function createLightning(x, y) {
-    lightningBolts.push({
-        x: x,
-        y: y,
-        width: 40,
-        height: canvas.height,
-        life: 20,
-        maxLife: 20
-    });
-}
-
-// Create particle effect
-function createParticles(x, y, color, count = 5) {
-    for (let i = 0; i < count; i++) {
-        particles.push({
-            x: x,
-            y: y,
-            vx: (Math.random() - 0.5) * 8,
-            vy: (Math.random() - 0.5) * 8,
-            life: 30,
-            maxLife: 30,
-            color: color
-        });
-    }
-}
-
-// Update particles
-function updateParticles() {
-    for (let i = particles.length - 1; i >= 0; i--) {
-        const p = particles[i];
-        p.x += p.vx;
-        p.y += p.vy;
-        p.life--;
-        
-        if (p.life <= 0) {
-            particles.splice(i, 1);
-        }
-    }
-}
-
-// Draw particles
-function drawParticles() {
-    particles.forEach(p => {
-        ctx.save();
-        ctx.globalAlpha = p.life / p.maxLife;
-        ctx.fillStyle = p.color;
-        ctx.fillRect(p.x, p.y, 3, 3);
-        ctx.restore();
-    });
-}
-
-// Check collision
-function checkCollision(obj1, obj2) {
-    return obj1.x < obj2.x + obj2.width &&
-           obj1.x + obj1.width > obj2.x &&
-           obj1.y < obj2.y + obj2.height &&
-           obj1.y + obj1.height > obj2.y;
-}
-
-// Update game
-function update() {
-    if (gameState !== 'playing') return;
-    
-    // Update cooldowns and timers
-    if (stats.specialCooldown > 0) stats.specialCooldown--;
-    if (player.shieldTime > 0) {
-        player.shieldTime--;
-        if (activePowerUps.shield) {
-            activePowerUps.shield.duration = player.shieldTime;
-            updatePowerUpTimer('shield');
-        }
-        if (player.shieldTime === 0) {
-            player.shield = false;
-            removePowerUpTimer('shield');
-        }
-    }
-    if (player.magnetRange > 0) {
-        player.magnetRange--;
-        if (activePowerUps.magnet) {
-            activePowerUps.magnet.duration = player.magnetRange;
-            updatePowerUpTimer('magnet');
-        }
-        if (player.magnetRange === 0) {
-            removePowerUpTimer('magnet');
-        }
-    }
-    if (stats.comboTime > 0) {
-        stats.comboTime--;
-        if (stats.comboTime === 0) stats.comboMultiplier = 1;
-    }
-    
-    // Update seashells
-    for (let i = seashells.length - 1; i >= 0; i--) {
-        const shell = seashells[i];
-        shell.y += shell.speed;
-        
-        // Magnet effect
-        if (player.magnetRange > 0) {
-            const dx = (player.x + player.width/2) - (shell.x + shell.width/2);
-            const dy = (player.y + player.height/2) - (shell.y + shell.height/2);
-            const distance = Math.sqrt(dx*dx + dy*dy);
-            
-            if (distance < 100) {
-                shell.x += dx * 0.1;
-                shell.y += dy * 0.1;
-            }
-        }
-        
-        // Check collision with player
-        if (checkCollision(player, shell) && !shell.collected) {
-            shell.collected = true;
-            stats.shells++;
-            const points = 10 * stats.comboMultiplier;
-            stats.score += points;
-            
-            // Extend combo
-            stats.comboTime = 120;
-            if (stats.comboMultiplier < 5) stats.comboMultiplier += 0.1;
-            
-            createParticles(shell.x + shell.width/2, shell.y + shell.height/2, '#FFD700');
-            updateHUD();
-        }
-        
-        // Remove if off screen
-        if (shell.y > canvas.height + 20) {
-            seashells.splice(i, 1);
-        }
-    }
-    
-    // Update power-ups
-    for (let i = powerUps.length - 1; i >= 0; i--) {
-        const powerUp = powerUps[i];
-        powerUp.y += powerUp.speed;
-        
-        // Check collision with player
-        if (checkCollision(player, powerUp) && !powerUp.collected) {
-            powerUp.collected = true;
-            applyPowerUp(powerUp);
-            
-            // Enhanced visual feedback
-            createParticles(powerUp.x + powerUp.width/2, powerUp.y + powerUp.height/2, '#FFD700', 15);
-            createParticles(player.x + player.width/2, player.y + player.height/2, '#00FF00', 10);
-            
-            powerUps.splice(i, 1);
-            continue;
-        }
-        
-        // Remove if off screen
-        if (powerUp.y > canvas.height + 25) {
-            powerUps.splice(i, 1);
-        }
-    }
-    
-    // Update lightning bolts
-    for (let i = lightningBolts.length - 1; i >= 0; i--) {
-        const lightning = lightningBolts[i];
-        lightning.life--;
-        
-        if (lightning.life <= 0) {
-            lightningBolts.splice(i, 1);
-        }
-    }
-    
-    // Update obstacles
-    for (let i = obstacles.length - 1; i >= 0; i--) {
-        const obstacle = obstacles[i];
-        obstacle.y += obstacle.speed;
-        
-        // Check if lightning hit obstacle
-        let hitByLightning = false;
-        for (let lightning of lightningBolts) {
-            if (obstacle.x > lightning.x - lightning.width/2 && 
-                obstacle.x < lightning.x + lightning.width/2 &&
-                obstacle.y < lightning.y + lightning.height) {
-                hitByLightning = true;
-                break;
-            }
-        }
-        
-        if (hitByLightning) {
-            stats.score += 25;
-            createParticles(obstacle.x + obstacle.width/2, obstacle.y + obstacle.height/2, '#FFFF00', 10);
-            obstacles.splice(i, 1);
-            continue;
-        }
-        
-        // Check collision with player
-        if (checkCollision(player, obstacle)) {
-            if (player.shield) {
-                player.shield = false;
-                player.shieldTime = 0;
-                createParticles(obstacle.x + obstacle.width/2, obstacle.y + obstacle.height/2, '#00FFFF', 8);
-                obstacles.splice(i, 1);
-                continue;
-            }
-            
-            stats.lives--;
-            stats.comboMultiplier = 1;
-            stats.comboTime = 0;
-            createParticles(player.x + player.width/2, player.y + player.height/2, '#FF0000', 12);
-            obstacles.splice(i, 1);
-            
-            // Enhanced screen shake and vibration
-            document.getElementById('gameContainer').classList.add('shake-screen');
-            setTimeout(() => document.getElementById('gameContainer').classList.remove('shake-screen'), 600);
-            
-            // Vibrate phone
-            vibratePhone();
-            
-            if (stats.lives <= 0) {
-                gameOver();
-                return;
-            }
-            updateHUD();
-            continue;
-        }
-        
-        // Remove if off screen
-        if (obstacle.y > canvas.height + 30) {
-            obstacles.splice(i, 1);
-        }
-    }
-    
-    // Update landmarks
-    for (let i = landmarks.length - 1; i >= 0; i--) {
-        const landmark = landmarks[i];
-        landmark.y += landmark.speed;
-        
-        if (checkCollision(player, landmark) && !landmark.visited) {
-            landmark.visited = true;
-            stats.locationsVisited++;
-            stats.score += 50 * stats.comboMultiplier;
-            stats.currentLocation = landmark.name;
-            createParticles(landmark.x + landmark.width/2, landmark.y + landmark.height/2, '#4CAF50', 10);
-            updateHUD();
-        }
-        
-        if (landmark.y > canvas.height + 40) {
-            landmarks.splice(i, 1);
-        }
-    }
-    
-    // Update particles
-    updateParticles();
-    
-    // Spawn new objects
-    if (Math.random() < 0.02) createSeashell();
-    if (Math.random() < 0.015) createObstacle();
-    if (Math.random() < 0.005) createLandmark();
-    if (Math.random() < 0.003) createPowerUp();
-    
-    // Increase difficulty over time
-    stats.score += 1;
-    
-    updateHUD();
-}
-
-// Draw game
-function draw() {
-    // Clear canvas with gradient background
-    const gradient = ctx.createLinearGradient(0, 0, 0, canvas.height);
-    gradient.addColorStop(0, '#87CEEB');
-    gradient.addColorStop(0.5, '#98FB98');
-    gradient.addColorStop(1, '#90EE90');
-    ctx.fillStyle = gradient;
-    ctx.fillRect(0, 0, canvas.width, canvas.height);
-    
-    // Draw clouds
-    drawClouds();
-    
-    // Draw lightning bolts
-    lightningBolts.forEach(lightning => {
-        ctx.save();
-        ctx.globalAlpha = lightning.life / lightning.maxLife;
-        const gradient = ctx.createLinearGradient(lightning.x - 20, 0, lightning.x + 20, canvas.height);
-        gradient.addColorStop(0, '#FFFFFF');
-        gradient.addColorStop(0.5, '#FFFF00');
-        gradient.addColorStop(1, '#FFFFFF');
-        ctx.fillStyle = gradient;
-        ctx.fillRect(lightning.x - 20, 0, 40, canvas.height);
-        
-        // Add jagged lightning effect
-        ctx.strokeStyle = '#FFFFFF';
-        ctx.lineWidth = 3;
-        ctx.beginPath();
-        ctx.moveTo(lightning.x, 0);
-        for (let i = 0; i < canvas.height; i += 20) {
-            ctx.lineTo(lightning.x + (Math.random() - 0.5) * 30, i);
-        }
-        ctx.stroke();
-        ctx.restore();
-    });
-    
-    // Draw seashells
-    seashells.forEach(shell => {
-        if (!shell.collected) {
-            ctx.font = '20px Arial';
-            ctx.fillText(shell.emoji, shell.x, shell.y + 20);
-        }
-    });
-    
-    // Draw power-ups with enhanced effects
-    powerUps.forEach(powerUp => {
-        if (!powerUp.collected) {
-            ctx.font = '25px Arial';
-            
-            // Enhanced glow effect for power-ups
-            ctx.save();
-            ctx.shadowColor = '#FFD700';
-            ctx.shadowBlur = 20;
-            ctx.fillText(powerUp.emoji, powerUp.x, powerUp.y + 25);
-            ctx.restore();
-            
-            // Pulsing ring around power-up
-            ctx.save();
-            ctx.globalAlpha = 0.5 + Math.sin(Date.now() * 0.01) * 0.3;
-            ctx.strokeStyle = '#FFD700';
-            ctx.lineWidth = 3;
-            ctx.beginPath();
-            ctx.arc(powerUp.x + powerUp.width/2, powerUp.y + powerUp.height/2, 
-                   20 + Math.sin(Date.now() * 0.01) * 5, 0, Math.PI * 2);
-            ctx.stroke();
-            ctx.restore();
-        }
-    });
-    
-    // Draw obstacles
-    obstacles.forEach(obstacle => {
-        ctx.font = '25px Arial';
-        ctx.fillText(obstacle.emoji, obstacle.x, obstacle.y + 25);
-    });
-    
-    // Draw landmarks
-    landmarks.forEach(landmark => {
-        ctx.font = '30px Arial';
-        ctx.fillText(landmark.emoji, landmark.x, landmark.y + 30);
-        
-        // Draw name if not visited
-        if (!landmark.visited) {
-            ctx.font = '12px Arial';
-            ctx.fillStyle = 'rgba(0, 0, 0, 0.7)';
-            ctx.fillText(landmark.name, landmark.x - 10, landmark.y - 5);
-        }
-    });
-    
-    // Draw particles
-    drawParticles();
-    
-    // Draw player with special effects
-    if (player.shield) {
-        // Shield effect
-        ctx.save();
-        ctx.globalAlpha = 0.6;
-        ctx.strokeStyle = '#00FFFF';
-        ctx.lineWidth = 3;
-        ctx.beginPath();
-        ctx.arc(player.x + player.width/2, player.y + player.height/2, 25, 0, Math.PI * 2);
-        ctx.stroke();
-        ctx.restore();
-    }
-    
-    if (player.magnetRange > 0) {
-        // Magnet field effect
-        ctx.save();
-        ctx.globalAlpha = 0.2;
-        ctx.strokeStyle = '#FFD700';
-        ctx.lineWidth = 2;
-        ctx.beginPath();
-        ctx.arc(player.x + player.width/2, player.y + player.height/2, 100, 0, Math.PI * 2);
-        ctx.stroke();
-        ctx.restore();
-    }
-    
-    // Draw player
-    ctx.fillStyle = player.boosting ? '#FF4444' : player.color;
-    ctx.beginPath();
-    ctx.arc(player.x + player.width/2, player.y + player.height/2, 
-            player.width/2 + (player.boosting ? 5 : 0), 0, Math.PI * 2);
-    ctx.fill();
-    
-    // Draw player emoji
-    ctx.font = '25px Arial';
-    ctx.fillText('🏃', player.x, player.y + 25);
-    
-    // Draw combo multiplier
-    if (stats.comboMultiplier > 1) {
-        ctx.font = 'bold 20px Arial';
-        ctx.fillStyle = '#FFD700';
-        ctx.fillText(`x${stats.comboMultiplier.toFixed(1)}`, player.x + 35, player.y + 15);
-    }
-    
-    // Draw boost trail (keep for desktop)
-    if (player.boosting) {
-        for (let i = 0; i < 3; i++) {
-            ctx.save();
-            ctx.globalAlpha = 0.3 - i * 0.1;
-            ctx.fillStyle = '#FFD700';
-            ctx.beginPath();
-            ctx.arc(player.x + player.width/2 - i * 15, 
-                   player.y + player.height/2, 
-                   player.width/2, 0, Math.PI * 2);
-            ctx.fill();
-            ctx.restore();
-        }
-    }
-}
-
-// Draw clouds
-function drawClouds() {
-    ctx.fillStyle = 'rgba(255, 255, 255, 0.8)';
-    ctx.font = '40px Arial';
-    ctx.fillText('☁️', 100, 80);
-    ctx.fillText('☁️', canvas.width - 150, 120);
-    ctx.fillText('☁️', canvas.width / 2, 60);
-}
-
-// Game loop
-function gameLoop(currentTime) {
-    const deltaTime = currentTime - lastTime;
-    lastTime = currentTime;
-    
-    if (gameRunning) {
-        update();
-        draw();
-    }
-    
-    requestAnimationFrame(gameLoop);
-}
-
-// Handle movement for both mouse and touch
-function handleMove(e) {
-    if (gameState !== 'playing') return;
-    
-    e.preventDefault();
-    const rect = canvas.getBoundingClientRect();
-    let clientX, clientY;
-    
-    if (e.type.startsWith('touch')) {
-        if (e.touches.length > 0) {
-            clientX = e.touches[0].clientX;
-            clientY = e.touches[0].clientY;
-        } else {
-            return;
-        }
-    } else {
-        clientX = e.clientX;
-        clientY = e.clientY;
-    }
-    
-    player.x = clientX - rect.left - player.width / 2;
-    player.y = clientY - rect.top - player.height / 2;
-    
-    // Keep player in bounds
-    player.x = Math.max(0, Math.min(canvas.width - player.width, player.x));
-    player.y = Math.max(0, Math.min(canvas.height - player.height, player.y));
-}
-
-// Event listeners
-function setupEventListeners() {
-    // Mouse movement
-    canvas.addEventListener('mousemove', handleMove);
-    
-    // Touch movement
-    canvas.addEventListener('touchmove', handleMove);
-    canvas.addEventListener('touchstart', handleMove);
-    
-    // Mouse boost
-    canvas.addEventListener('mousedown', (e) => {
-        if (gameState === 'playing' && !isTouchDevice) {
-            player.boosting = true;
-            player.speed = 8;
-        }
-    });
-    
-    canvas.addEventListener('mouseup', (e) => {
-        if (!isTouchDevice) {
-            player.boosting = false;
-            player.speed = 5;
-        }
-    });
-    
-    // Prevent context menu on long press
-    canvas.addEventListener('contextmenu', (e) => {
-        e.preventDefault();
-    });
-    
-    // Prevent scrolling and zooming
-    document.addEventListener('touchmove', (e) => {
-        e.preventDefault();
-    }, { passive: false });
-    
-    document.addEventListener('touchstart', (e) => {
-        if (e.target === canvas) {
-            e.preventDefault();
-        }
-    }, { passive: false });
-    
-    // Keyboard controls
-    document.addEventListener('keydown', (e) => {
-        if (e.code === 'Space') {
-            e.preventDefault();
-            togglePause();
-        }
-    });
-    
-    // Window resize
-    window.addEventListener('resize', () => {
-        canvas.width = window.innerWidth;
-        canvas.height = window.innerHeight;
-    });
-}
-
-// Touch control functions
-function togglePause() {
-    if (gameState === 'playing') {
-        pauseGame();
-    } else if (gameState === 'paused') {
-        resumeGame();
-    }
-}
-
-function activateSpecial(e) {
-    e.preventDefault();
-    if (gameState !== 'playing' || stats.specialCooldown > 0) {
-        return;
-    }
-    
-    // Lightning strike special ability
-    const lightningX = player.x + player.width/2;
-    createLightning(lightningX, 0);
-    
-    // Set cooldown (3 seconds)
-    stats.specialCooldown = 180;
-    
-    // Update cooldown button appearance
-    updateSpecialButton();
-    
-    // Screen flash effect
-    createParticles(canvas.width/2, canvas.height/2, '#FFFF00', 20);
-}
-
-function updateSpecialButton() {
-    const btn = document.getElementById('specialBtn');
-    if (stats.specialCooldown > 0) {
-        btn.classList.add('special-cooldown');
-        btn.textContent = Math.ceil(stats.specialCooldown / 60);
-    } else {
-        btn.classList.remove('special-cooldown');
-        btn.textContent = '⚡';
-    }
-}
-
-// Game state functions
-function startGame() {
-    document.getElementById('startScreen').style.display = 'none';
-    gameState = 'playing';
-    gameRunning = true;
-    resetStats();
-    init();
-}
-
-function pauseGame() {
-    gameState = 'paused';
-    gameRunning = false;
-}
-
-function resumeGame() {
-    gameState = 'playing';
-    gameRunning = true;
-}
-
-function gameOver() {
-    gameState = 'gameOver';
-    gameRunning = false;
-    
-    document.getElementById('finalScore').textContent = stats.score;
-    document.getElementById('finalShells').textContent = stats.shells;
-    document.getElementById('finalLocations').textContent = stats.locationsVisited;
-    document.getElementById('gameOverScreen').style.display = 'block';
-}
-
-function restartGame() {
-    document.getElementById('gameOverScreen').style.display = 'none';
-    gameState = 'playing';
-    gameRunning = true;
-    
-    // Clear arrays
-    clearGameObjects();
-    
-    // Reset player position
-    player.x = canvas.width / 2;
-    player.y = canvas.height - 100;
-    
-    resetStats();
-    init();
-}
-
-function showStartScreen() {
-    document.getElementById('gameOverScreen').style.display = 'none';
-    document.getElementById('startScreen').style.display = 'flex';
-    gameState = 'start';
-    gameRunning = false;
-    
-    // Clear everything
-    clearGameObjects();
-}
-
-function resetStats() {
-    stats = {
+    // Game stats
+    let stats = {
         shells: 0,
         score: 0,
         lives: 3,
@@ -1493,61 +632,937 @@ function resetStats() {
         comboTime: 0
     };
     
-    // Reset player
-    player.magnetRange = 0;
-    player.shield = false;
-    player.shieldTime = 0;
-    player.boosting = false;
+    // Game objects arrays
+    let seashells = [];
+    let obstacles = [];
+    let landmarks = [];
+    let particles = [];
+    let powerUps = [];
+    let lightningBolts = [];
+    let activePowerUps = {};
     
-    // Clear power-up timers
-    Object.keys(activePowerUps).forEach(type => {
-        removePowerUpTimer(type);
-    });
-    activePowerUps = {};
+    // Wexford locations
+    const locations = [
+        'Morriscastle Beach',
+        'Kilmuckridge Trail', 
+        'Secret Valley Wildlife Park',
+        'Wells House & Gardens',
+        'Enniscorthy Castle',
+        'Wexford Town'
+    ];
     
-    updateHUD();
-    updateSpecialButton();
-}
-
-function updateHUD() {
-    document.getElementById('shells').textContent = stats.shells;
-    document.getElementById('score').textContent = stats.score;
-    document.getElementById('lives').textContent = stats.lives;
-    document.getElementById('location').textContent = stats.currentLocation;
-    
-    // Update combo display
-    const comboDisplay = document.getElementById('combo-display');
-    const comboElement = document.getElementById('combo');
-    
-    if (stats.comboMultiplier > 1) {
-        comboDisplay.style.display = 'block';
-        comboElement.textContent = stats.comboMultiplier.toFixed(1) + 'x';
-    } else {
-        comboDisplay.style.display = 'none';
+    // Vibrate phone function
+    function vibratePhone() {
+        if ('vibrate' in navigator) {
+            navigator.vibrate([200, 100, 200]);
+        }
     }
     
-    // Update special button cooldown
-    if (isTouchDevice) {
+    // Show power-up notification
+    function showPowerUpNotification(powerUp) {
+        const notification = document.createElement('div');
+        notification.className = 'power-up-notification';
+        
+        let message = '';
+        switch(powerUp.type) {
+            case 'magnet':
+                message = ' 🧲  Magnet Activated';
+                break;
+            case 'shield':
+                message = ' 🛡️  Shield Activated';
+                break;
+            case 'points':
+                message = ' ⭐  Bonus Points';
+                break;
+            case 'life':
+                message = ' ❤️  Extra Life';
+                break;
+        }
+        
+        notification.textContent = message;
+        document.getElementById('gameContainer').appendChild(notification);
+        
+        setTimeout(() => {
+            if (notification.parentNode) {
+                notification.parentNode.removeChild(notification);
+            }
+        }, 2000);
+    }
+    
+    // Add power-up timer
+    function addPowerUpTimer(type, duration, emoji) {
+        const timersContainer = document.getElementById('powerUpTimers');
+        const timer = document.createElement('div');
+        timer.className = 'power-up-timer';
+        timer.id = `timer-${type}`;
+        
+        timer.innerHTML = `
+            <div class="timer-progress" id="progress-${type}"></div>
+            <span>${emoji}</span>
+        `;
+        
+        timersContainer.appendChild(timer);
+        
+        // Store timer info
+        activePowerUps[type] = {
+            element: timer,
+            duration: duration,
+            maxDuration: duration
+        };
+        
+        updatePowerUpTimer(type);
+    }
+    
+    // Update power-up timer
+    function updatePowerUpTimer(type) {
+        const powerUp = activePowerUps[type];
+        if (!powerUp) return;
+        
+        const progress = powerUp.element.querySelector(`#progress-${type}`);
+        const percentage = (powerUp.duration / powerUp.maxDuration) * 100;
+        
+        // Update circular progress
+        progress.style.border = '2px solid transparent';
+        progress.style.borderTopColor = '#FFD700';
+        progress.style.background = `conic-gradient(#FFD700 ${percentage}%, transparent ${percentage}%)`;
+        progress.style.mask = 'radial-gradient(circle, transparent 19px, black 21px)';
+        progress.style.webkitMask = 'radial-gradient(circle, transparent 19px, black 21px)';
+    }
+    
+    // Remove power-up timer
+    function removePowerUpTimer(type) {
+        const powerUp = activePowerUps[type];
+        if (powerUp && powerUp.element && powerUp.element.parentNode) {
+            powerUp.element.parentNode.removeChild(powerUp.element);
+        }
+        delete activePowerUps[type];
+    }
+    
+    // Apply power-up
+    function applyPowerUp(powerUp) {
+        showPowerUpNotification(powerUp);
+        
+        switch(powerUp.type) {
+            case 'magnet':
+                if (activePowerUps.magnet) {
+                    // Extend existing magnet timer
+                    player.magnetRange += powerUp.duration;
+                    activePowerUps.magnet.duration = player.magnetRange;
+                    activePowerUps.magnet.maxDuration = Math.max(activePowerUps.magnet.maxDuration, player.magnetRange);
+                } else {
+                    // New magnet
+                    player.magnetRange = powerUp.duration;
+                    addPowerUpTimer('magnet', powerUp.duration, ' 🧲 ');
+                }
+                stats.score += 20;
+                break;
+            case 'shield':
+                if (activePowerUps.shield) {
+                    // Stack shields - add to existing timer
+                    player.shieldTime += powerUp.duration;
+                    activePowerUps.shield.duration = player.shieldTime;
+                    activePowerUps.shield.maxDuration = Math.max(activePowerUps.shield.maxDuration, player.shieldTime);
+                } else {
+                    // New shield
+                    player.shield = true;
+                    player.shieldTime = powerUp.duration;
+                    addPowerUpTimer('shield', powerUp.duration, ' 🛡️ ');
+                }
+                stats.score += 30;
+                break;
+            case 'points':
+                stats.score += powerUp.value;
+                break;
+            case 'life':
+                if (stats.lives < 5) {
+                    stats.lives += powerUp.value;
+                } else {
+                    stats.score += 100;
+                }
+                break;
+        }
+    }
+    
+    // Initialize game
+    function init() {
+        for (let i = 0; i < 5; i++) {
+            createSeashell();
+        }
+        for (let i = 0; i < 3; i++) {
+            createObstacle();
+        }
+        createLandmark();
+        setupEventListeners();
+    }
+    
+    // Create seashell
+    function createSeashell() {
+        seashells.push({
+            x: Math.random() * (canvas.width - 20),
+            y: -20,
+            width: 15,
+            height: 15,
+            speed: 2 + Math.random() * 2,
+            collected: false,
+            emoji: [' 🐚 ', ' 🦪 ', ' ⭐ '][Math.floor(Math.random() * 3)]
+        });
+    }
+    
+    // Create obstacle
+    function createObstacle() {
+        obstacles.push({
+            x: Math.random() * (canvas.width - 30),
+            y: -30,
+            width: 25,
+            height: 25,
+            speed: 1.5 + Math.random() * 2,
+            emoji: [' 🗿 ', ' 🪨 ', ' 🦀 '][Math.floor(Math.random() * 3)]
+        });
+    }
+    
+    // Create landmark
+    function createLandmark() {
+        landmarks.push({
+            x: Math.random() * (canvas.width - 40),
+            y: -40,
+            width: 35,
+            height: 35,
+            speed: 1,
+            visited: false,
+            emoji: [' 🏨 ', ' 🏰 ', ' 🎡 ', ' 🌸 ', ' 🎭 ', ' 🍦 '][Math.floor(Math.random() * 6)],
+            name: locations[Math.floor(Math.random() * locations.length)]
+        });
+    }
+    
+    // Create power-up
+    function createPowerUp() {
+        const powerUpTypes = [
+            { emoji: ' 🧲 ', type: 'magnet', duration: 300 },
+            { emoji: ' 🛡️ ', type: 'shield', duration: 180 },
+            { emoji: ' ⭐ ', type: 'points', value: 100 },
+            { emoji: ' ❤️ ', type: 'life', value: 1 }
+        ];
+        
+        const powerUp = powerUpTypes[Math.floor(Math.random() * powerUpTypes.length)];
+        powerUps.push({
+            x: Math.random() * (canvas.width - 25),
+            y: -25,
+            width: 20,
+            height: 20,
+            speed: 1.5,
+            ...powerUp,
+            collected: false
+        });
+    }
+    
+    // Create atomic bomb blast
+    function createBomb(x, y) {
+        lightningBolts.push({
+            x: x,
+            y: y,
+            width: 40,
+            height: canvas.height,
+            life: 20,
+            maxLife: 20
+        });
+    }
+    
+    // Create particle effect
+    function createParticles(x, y, color, count = 5) {
+        for (let i = 0; i < count; i++) {
+            particles.push({
+                x: x,
+                y: y,
+                vx: (Math.random() - 0.5) * 8,
+                vy: (Math.random() - 0.5) * 8,
+                life: 30,
+                maxLife: 30,
+                color: color
+            });
+        }
+    }
+    
+    // Update particles
+    function updateParticles() {
+        for (let i = particles.length - 1; i >= 0; i--) {
+            const p = particles[i];
+            p.x += p.vx;
+            p.y += p.vy;
+            p.life--;
+            
+            if (p.life <= 0) {
+                particles.splice(i, 1);
+            }
+        }
+    }
+    
+    // Draw particles
+    function drawParticles() {
+        particles.forEach(p => {
+            ctx.save();
+            ctx.globalAlpha = p.life / p.maxLife;
+            ctx.fillStyle = p.color;
+            ctx.fillRect(p.x, p.y, 3, 3);
+            ctx.restore();
+        });
+    }
+    
+    // Check collision
+    function checkCollision(obj1, obj2) {
+        return obj1.x < obj2.x + obj2.width &&
+               obj1.x + obj1.width > obj2.x &&
+               obj1.y < obj2.y + obj2.height &&
+               obj1.y + obj1.height > obj2.y;
+    }
+    
+    // Update game
+    function update() {
+        if (gameState !== 'playing') return;
+        
+        // Update cooldowns and timers
+        if (stats.specialCooldown > 0) stats.specialCooldown--;
+        
+        // Update shield timer
+        if (player.shieldTime > 0) {
+            player.shieldTime--;
+            if (activePowerUps.shield) {
+                activePowerUps.shield.duration = player.shieldTime;
+                updatePowerUpTimer('shield');
+            }
+            if (player.shieldTime <= 0) {
+                player.shield = false;
+                player.shieldTime = 0;
+                removePowerUpTimer('shield');
+            }
+        }
+        
+        // Update magnet timer
+        if (player.magnetRange > 0) {
+            player.magnetRange--;
+            if (activePowerUps.magnet) {
+                activePowerUps.magnet.duration = player.magnetRange;
+                updatePowerUpTimer('magnet');
+            }
+            if (player.magnetRange <= 0) {
+                player.magnetRange = 0;
+                removePowerUpTimer('magnet');
+            }
+        }
+        
+        // Update combo timer
+        if (stats.comboTime > 0) {
+            stats.comboTime--;
+            if (stats.comboTime === 0) stats.comboMultiplier = 1;
+        }
+        
+        // Update seashells
+        for (let i = seashells.length - 1; i >= 0; i--) {
+            const shell = seashells[i];
+            shell.y += shell.speed;
+            
+            // Magnet effect
+            if (player.magnetRange > 0) {
+                const dx = (player.x + player.width/2) - (shell.x + shell.width/2);
+                const dy = (player.y + player.height/2) - (shell.y + shell.height/2);
+                const distance = Math.sqrt(dx*dx + dy*dy);
+                
+                if (distance < 100) {
+                    shell.x += dx * 0.1;
+                    shell.y += dy * 0.1;
+                }
+            }
+            
+            // Check collision with player
+            if (checkCollision(player, shell) && !shell.collected) {
+                shell.collected = true;
+                stats.shells++;
+                const points = 10 * stats.comboMultiplier;
+                stats.score += points;
+                
+                // Extend combo
+                stats.comboTime = 120;
+                if (stats.comboMultiplier < 5) stats.comboMultiplier += 0.1;
+                
+                createParticles(shell.x + shell.width/2, shell.y + shell.height/2, '#FFD700');
+                updateHUD();
+            }
+            
+            // Remove if off screen
+            if (shell.y > canvas.height + 20) {
+                seashells.splice(i, 1);
+            }
+        }
+        
+        // Update power-ups
+        for (let i = powerUps.length - 1; i >= 0; i--) {
+            const powerUp = powerUps[i];
+            powerUp.y += powerUp.speed;
+            
+            // Check collision with player
+            if (checkCollision(player, powerUp) && !powerUp.collected) {
+                powerUp.collected = true;
+                applyPowerUp(powerUp);
+                
+                // Enhanced visual feedback
+                createParticles(powerUp.x + powerUp.width/2, powerUp.y + powerUp.height/2, '#FFD700', 15);
+                createParticles(player.x + player.width/2, player.y + player.height/2, '#00FF00', 10);
+                
+                powerUps.splice(i, 1);
+                continue;
+            }
+            
+            // Remove if off screen
+            if (powerUp.y > canvas.height + 25) {
+                powerUps.splice(i, 1);
+            }
+        }
+        
+        // Update atomic bombs (was lightning bolts)
+        for (let i = lightningBolts.length - 1; i >= 0; i--) {
+            const bomb = lightningBolts[i];
+            bomb.life--;
+            
+            if (bomb.life <= 0) {
+                lightningBolts.splice(i, 1);
+            }
+        }
+        
+        // Update obstacles
+        for (let i = obstacles.length - 1; i >= 0; i--) {
+            const obstacle = obstacles[i];
+            obstacle.y += obstacle.speed;
+            
+            // Check if bomb hit obstacle
+            let hitByBomb = false;
+            for (let bomb of lightningBolts) {
+                if (obstacle.x > bomb.x - bomb.width/2 && 
+                    obstacle.x < bomb.x + bomb.width/2 &&
+                    obstacle.y < bomb.y + bomb.height) {
+                    hitByBomb = true;
+                    break;
+                }
+            }
+            
+            if (hitByBomb) {
+                stats.score += 25;
+                createParticles(obstacle.x + obstacle.width/2, obstacle.y + obstacle.height/2, '#FFFF00', 10);
+                obstacles.splice(i, 1);
+                continue;
+            }
+            
+            // Check collision with player
+            if (checkCollision(player, obstacle)) {
+                if (player.shield) {
+                    player.shield = false;
+                    player.shieldTime = 0;
+                    removePowerUpTimer('shield');
+                    createParticles(obstacle.x + obstacle.width/2, obstacle.y + obstacle.height/2, '#00FFFF', 8);
+                    obstacles.splice(i, 1);
+                    continue;
+                }
+                
+                stats.lives--;
+                stats.comboMultiplier = 1;
+                stats.comboTime = 0;
+                createParticles(player.x + player.width/2, player.y + player.height/2, '#FF0000', 12);
+                obstacles.splice(i, 1);
+                
+                // Enhanced screen shake and vibration
+                document.getElementById('gameContainer').classList.add('shake-screen');
+                setTimeout(() => document.getElementById('gameContainer').classList.remove('shake-screen'), 600);
+                
+                // Vibrate phone
+                vibratePhone();
+                
+                if (stats.lives <= 0) {
+                    gameOver();
+                    return;
+                }
+                updateHUD();
+                continue;
+            }
+            
+            // Remove if off screen
+            if (obstacle.y > canvas.height + 30) {
+                obstacles.splice(i, 1);
+            }
+        }
+        
+        // Update landmarks
+        for (let i = landmarks.length - 1; i >= 0; i--) {
+            const landmark = landmarks[i];
+            landmark.y += landmark.speed;
+            
+            if (checkCollision(player, landmark) && !landmark.visited) {
+                landmark.visited = true;
+                stats.locationsVisited++;
+                stats.score += 50 * stats.comboMultiplier;
+                stats.currentLocation = landmark.name;
+                createParticles(landmark.x + landmark.width/2, landmark.y + landmark.height/2, '#4CAF50', 10);
+                updateHUD();
+            }
+            
+            if (landmark.y > canvas.height + 40) {
+                landmarks.splice(i, 1);
+            }
+        }
+        
+        // Update particles
+        updateParticles();
+        
+        // Spawn new objects
+        if (Math.random() < 0.02) createSeashell();
+        if (Math.random() < 0.015) createObstacle();
+        if (Math.random() < 0.005) createLandmark();
+        if (Math.random() < 0.003) createPowerUp();
+        
+        // Increase difficulty over time
+        stats.score += 1;
+        
+        updateHUD();
+    }
+    
+    // Draw game
+    function draw() {
+        // Clear canvas with gradient background
+        const gradient = ctx.createLinearGradient(0, 0, 0, canvas.height);
+        gradient.addColorStop(0, '#87CEEB');
+        gradient.addColorStop(0.5, '#98FB98');
+        gradient.addColorStop(1, '#90EE90');
+        ctx.fillStyle = gradient;
+        ctx.fillRect(0, 0, canvas.width, canvas.height);
+        
+        // Draw clouds
+        drawClouds();
+        
+        // Draw atomic bomb blasts (was lightning)
+        lightningBolts.forEach(bomb => {
+            ctx.save();
+            ctx.globalAlpha = bomb.life / bomb.maxLife;
+            
+            // Create explosion effect
+            const gradient = ctx.createRadialGradient(bomb.x, bomb.y + 50, 0, bomb.x, bomb.y + 50, 60);
+            gradient.addColorStop(0, '#FFFFFF');
+            gradient.addColorStop(0.3, '#FFFF00');
+            gradient.addColorStop(0.6, '#FF4500');
+            gradient.addColorStop(1, '#FF0000');
+            ctx.fillStyle = gradient;
+            
+            // Draw expanding blast radius
+            const blastRadius = (bomb.maxLife - bomb.life + 1) * 15;
+            ctx.beginPath();
+            ctx.arc(bomb.x, bomb.y + 50, blastRadius, 0, Math.PI * 2);
+            ctx.fill();
+            
+            // Draw mushroom cloud
+            ctx.font = '40px Arial';
+            ctx.fillStyle = '#8B4513';
+            ctx.fillText(' ☁️ ', bomb.x - 20, bomb.y + 40);
+            ctx.fillStyle = '#FF4500';
+            ctx.fillText(' 💥 ', bomb.x - 15, bomb.y + 20);
+            
+            ctx.restore();
+        });
+        
+        // Draw seashells
+        seashells.forEach(shell => {
+            if (!shell.collected) {
+                ctx.font = '20px Arial';
+                ctx.fillText(shell.emoji, shell.x, shell.y + 20);
+            }
+        });
+        
+        // Draw power-ups with enhanced effects
+        powerUps.forEach(powerUp => {
+            if (!powerUp.collected) {
+                ctx.font = '25px Arial';
+                
+                // Enhanced glow effect for power-ups
+                ctx.save();
+                ctx.shadowColor = '#FFD700';
+                ctx.shadowBlur = 20;
+                ctx.fillText(powerUp.emoji, powerUp.x, powerUp.y + 25);
+                ctx.restore();
+                
+                // Pulsing ring around power-up
+                ctx.save();
+                ctx.globalAlpha = 0.5 + Math.sin(Date.now() * 0.01) * 0.3;
+                ctx.strokeStyle = '#FFD700';
+                ctx.lineWidth = 3;
+                ctx.beginPath();
+                ctx.arc(powerUp.x + powerUp.width/2, powerUp.y + powerUp.height/2, 
+                       20 + Math.sin(Date.now() * 0.01) * 5, 0, Math.PI * 2);
+                ctx.stroke();
+                ctx.restore();
+            }
+        });
+        
+        // Draw obstacles
+        obstacles.forEach(obstacle => {
+            ctx.font = '25px Arial';
+            ctx.fillText(obstacle.emoji, obstacle.x, obstacle.y + 25);
+        });
+        
+        // Draw landmarks
+        landmarks.forEach(landmark => {
+            ctx.font = '30px Arial';
+            ctx.fillText(landmark.emoji, landmark.x, landmark.y + 30);
+            
+            // Draw name if not visited
+            if (!landmark.visited) {
+                ctx.font = '12px Arial';
+                ctx.fillStyle = 'rgba(0, 0, 0, 0.7)';
+                ctx.fillText(landmark.name, landmark.x - 10, landmark.y - 5);
+            }
+        });
+        
+        // Draw particles
+        drawParticles();
+        
+        // Draw player with special effects
+        if (player.shield) {
+            // Shield effect
+            ctx.save();
+            ctx.globalAlpha = 0.6;
+            ctx.strokeStyle = '#00FFFF';
+            ctx.lineWidth = 3;
+            ctx.beginPath();
+            ctx.arc(player.x + player.width/2, player.y + player.height/2, 25, 0, Math.PI * 2);
+            ctx.stroke();
+            ctx.restore();
+        }
+        
+        if (player.magnetRange > 0) {
+            // Magnet field effect
+            ctx.save();
+            ctx.globalAlpha = 0.2;
+            ctx.strokeStyle = '#FFD700';
+            ctx.lineWidth = 2;
+            ctx.beginPath();
+            ctx.arc(player.x + player.width/2, player.y + player.height/2, 100, 0, Math.PI * 2);
+            ctx.stroke();
+            ctx.restore();
+        }
+        
+        // Draw player
+        ctx.fillStyle = player.boosting ? '#FF4444' : player.color;
+        ctx.beginPath();
+        ctx.arc(player.x + player.width/2, player.y + player.height/2, 
+                player.width/2 + (player.boosting ? 5 : 0), 0, Math.PI * 2);
+        ctx.fill();
+        
+        // Draw player emoji
+        ctx.font = '25px Arial';
+        ctx.fillText(' 🏃 ', player.x, player.y + 25);
+        
+        // Draw combo multiplier
+        if (stats.comboMultiplier > 1) {
+            ctx.font = 'bold 20px Arial';
+            ctx.fillStyle = '#FFD700';
+            ctx.fillText(`x${stats.comboMultiplier.toFixed(1)}`, player.x + 35, player.y + 15);
+        }
+        
+        // Draw boost trail (keep for desktop)
+        if (player.boosting) {
+            for (let i = 0; i < 3; i++) {
+                ctx.save();
+                ctx.globalAlpha = 0.3 - i * 0.1;
+                ctx.fillStyle = '#FFD700';
+                ctx.beginPath();
+                ctx.arc(player.x + player.width/2 - i * 15, 
+                       player.y + player.height/2, 
+                       player.width/2, 0, Math.PI * 2);
+                ctx.fill();
+                ctx.restore();
+            }
+        }
+    }
+    
+    // Draw clouds
+    function drawClouds() {
+        ctx.fillStyle = 'rgba(255, 255, 255, 0.8)';
+        ctx.font = '40px Arial';
+        ctx.fillText(' ☁️ ', 100, 80);
+        ctx.fillText(' ☁️ ', canvas.width - 150, 120);
+        ctx.fillText(' ☁️ ', canvas.width / 2, 60);
+    }
+    
+    // Game loop
+    function gameLoop(currentTime) {
+        const deltaTime = currentTime - lastTime;
+        lastTime = currentTime;
+        
+        if (gameRunning) {
+            update();
+            draw();
+        }
+        
+        requestAnimationFrame(gameLoop);
+    }
+    
+    // Handle movement for both mouse and touch
+    function handleMove(e) {
+        if (gameState !== 'playing') return;
+        
+        e.preventDefault();
+        const rect = canvas.getBoundingClientRect();
+        let clientX, clientY;
+        
+        if (e.type.startsWith('touch')) {
+            if (e.touches.length > 0) {
+                clientX = e.touches[0].clientX;
+                clientY = e.touches[0].clientY;
+            } else {
+                return;
+            }
+        } else {
+            clientX = e.clientX;
+            clientY = e.clientY;
+        }
+        
+        player.x = clientX - rect.left - player.width / 2;
+        player.y = clientY - rect.top - player.height / 2;
+        
+        // Keep player in bounds
+        player.x = Math.max(0, Math.min(canvas.width - player.width, player.x));
+        player.y = Math.max(0, Math.min(canvas.height - player.height, player.y));
+    }
+    
+    // Event listeners
+    function setupEventListeners() {
+        // Mouse movement
+        canvas.addEventListener('mousemove', handleMove);
+        
+        // Touch movement
+        canvas.addEventListener('touchmove', handleMove);
+        canvas.addEventListener('touchstart', handleMove);
+        
+        // Mouse boost
+        canvas.addEventListener('mousedown', (e) => {
+            if (gameState === 'playing' && !isTouchDevice) {
+                player.boosting = true;
+                player.speed = 8;
+            }
+        });
+        
+        canvas.addEventListener('mouseup', (e) => {
+            if (!isTouchDevice) {
+                player.boosting = false;
+                player.speed = 5;
+            }
+        });
+        
+        // Prevent context menu on long press
+        canvas.addEventListener('contextmenu', (e) => {
+            e.preventDefault();
+        });
+        
+        // Prevent scrolling and zooming on the document
+        document.addEventListener('touchmove', (e) => {
+            e.preventDefault();
+        }, { passive: false });
+        
+        document.addEventListener('touchstart', (e) => {
+            if (e.target === canvas) {
+                e.preventDefault();
+            }
+        }, { passive: false });
+        
+        // Keyboard controls (removed pause functionality)
+        document.addEventListener('keydown', (e) => {
+            // Space key functionality removed
+        });
+        
+        // Window resize
+        window.addEventListener('resize', () => {
+            canvas.width = window.innerWidth;
+            canvas.height = window.innerHeight;
+        });
+
+        // FIX: Added event listeners for the special ability button
+        const specialBtn = document.getElementById('specialBtn');
+        specialBtn.addEventListener('click', activateSpecial);
+        specialBtn.addEventListener('touchstart', activateSpecial);
+    }
+    
+    // Touch control functions
+    function togglePause() {
+        if (gameState === 'playing') {
+            pauseGame();
+        } else if (gameState === 'paused') {
+            resumeGame();
+        }
+    }
+    
+    function activateSpecial(e) {
+        e.preventDefault();
+        if (gameState !== 'playing' || stats.specialCooldown > 0) {
+            return;
+        }
+        
+        // Bomb special ability
+        const bombX = player.x + player.width/2;
+        // FIX: Corrected function name from createLightning to createBomb
+        createBomb(bombX, 0); 
+        
+        // Set cooldown (3 seconds)
+        stats.specialCooldown = 180;
+        
+        // Update cooldown button appearance
+        updateSpecialButton();
+        
+        // Screen flash effect
+        createParticles(canvas.width/2, canvas.height/2, '#FFFF00', 20);
+    }
+    
+    function updateSpecialButton() {
+        const btn = document.getElementById('specialBtn');
+        if (stats.specialCooldown > 0) {
+            btn.classList.add('special-cooldown');
+            btn.textContent = Math.ceil(stats.specialCooldown / 60);
+        } else {
+            btn.classList.remove('special-cooldown');
+            btn.textContent = ' 💣 ';
+        }
+    }
+    
+    // Game state functions
+    function startGame() {
+        document.getElementById('startScreen').style.display = 'none';
+        gameState = 'playing';
+        gameRunning = true;
+        resetStats();
+        init();
+    }
+    
+    function pauseGame() {
+        gameState = 'paused';
+        gameRunning = false;
+    }
+    
+    function resumeGame() {
+        gameState = 'playing';
+        gameRunning = true;
+    }
+    
+    function gameOver() {
+        gameState = 'gameOver';
+        gameRunning = false;
+        
+        document.getElementById('finalScore').textContent = stats.score;
+        document.getElementById('finalShells').textContent = stats.shells;
+        document.getElementById('finalLocations').textContent = stats.locationsVisited;
+        document.getElementById('gameOverScreen').style.display = 'block';
+    }
+    
+    // Make these functions globally accessible for the onclick attributes
+    window.restartGame = function() {
+        document.getElementById('gameOverScreen').style.display = 'none';
+        gameState = 'playing';
+        gameRunning = true;
+        
+        // Clear arrays
+        clearGameObjects();
+        
+        // Reset player position
+        player.x = canvas.width / 2;
+        player.y = canvas.height - 100;
+        
+        resetStats();
+        init();
+    }
+
+    window.showStartScreen = function() {
+        document.getElementById('gameOverScreen').style.display = 'none';
+        document.getElementById('startScreen').style.display = 'flex';
+        gameState = 'start';
+        gameRunning = false;
+        
+        // Clear everything
+        clearGameObjects();
+    }
+    
+    // This function can remain global if you plan to call it from other scripts
+    window.shareScore = function() {
+        // Placeholder for sharing functionality
+        alert(`Share your score: ${stats.score}`);
+    }
+
+    function resetStats() {
+        stats = {
+            shells: 0,
+            score: 0,
+            lives: 3,
+            locationsVisited: 0,
+            currentLocation: 'Morriscastle Beach',
+            specialCooldown: 0,
+            comboMultiplier: 1,
+            comboTime: 0
+        };
+        
+        // Reset player
+        player.magnetRange = 0;
+        player.shield = false;
+        player.shieldTime = 0;
+        player.boosting = false;
+        
+        // Clear power-up timers safely
+        Object.keys(activePowerUps).forEach(type => {
+            removePowerUpTimer(type);
+        });
+        activePowerUps = {};
+        
+        // Clear any remaining timer elements
+        const timersContainer = document.getElementById('powerUpTimers');
+        if (timersContainer) {
+            timersContainer.innerHTML = '';
+        }
+        
+        updateHUD();
         updateSpecialButton();
     }
-}
+    
+    function updateHUD() {
+        document.getElementById('shells').textContent = stats.shells;
+        document.getElementById('score').textContent = stats.score;
+        document.getElementById('lives').textContent = stats.lives;
+        document.getElementById('location').textContent = stats.currentLocation;
+        
+        // Update combo display
+        const comboDisplay = document.getElementById('combo-display');
+        const comboElement = document.getElementById('combo');
+        
+        if (stats.comboMultiplier > 1) {
+            comboDisplay.style.display = 'block';
+            comboElement.textContent = stats.comboMultiplier.toFixed(1) + 'x';
+        } else {
+            comboDisplay.style.display = 'none';
+        }
+        
+        // Update special button cooldown
+        if (isTouchDevice) {
+            updateSpecialButton();
+        }
+    }
+    
+    // Clear arrays function for restart
+    function clearGameObjects() {
+        seashells.length = 0;
+        obstacles.length = 0;
+        landmarks.length = 0;
+        particles.length = 0;
+        powerUps.length = 0;
+        lightningBolts.length = 0; // Now atomic bombs
+    }
+    
+    // FIX: Add event listener for the start button
+    document.querySelector('.start-btn').addEventListener('click', startGame);
 
-// Clear arrays function for restart
-function clearGameObjects() {
-    seashells.length = 0;
-    obstacles.length = 0;
-    landmarks.length = 0;
-    particles.length = 0;
-    powerUps.length = 0;
-    lightningBolts.length = 0;
-}
-
-// Initialize everything
-document.addEventListener('DOMContentLoaded', function() {
+    // Initialize everything
     updateHUD();
     gameLoop(0);
 });
 </script>
-
 </body>
 </html>
+
