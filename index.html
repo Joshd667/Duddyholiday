@@ -1,0 +1,211 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Wexford Family Adventure: A 6-Day Itinerary</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&family=Lobster&family=Poppins:wght@300;500;700&display=swap" rel="stylesheet">
+    <style>
+        /* --- Custom Fonts --- */
+        .font-lobster { font-family: 'Lobster', cursive; }
+        .font-poppins { font-family: 'Poppins', sans-serif; }
+        body { font-family: 'Poppins', sans-serif; }
+
+        /* --- Animated Gradient Background --- */
+        body {
+            background: linear-gradient(-45deg, #ee7752, #e73c7e, #23a6d5, #23d5ab);
+            background-size: 400% 400%;
+            animation: gradientBG 25s ease infinite;
+        }
+
+        @keyframes gradientBG {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+
+        /* --- Glassmorphism Card Style --- */
+        .glass-card {
+            background: rgba(255, 255, 255, 0.2);
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.3);
+            border-radius: 1.5rem; /* 24px */
+        }
+        
+        /* --- Scroll Animation Setup --- */
+        .scroll-animate {
+            opacity: 0;
+            transform: translateY(50px);
+            transition: opacity 0.6s ease-out, transform 0.6s ease-out;
+        }
+        
+        .scroll-animate.is-visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        /* --- Icon Styling --- */
+        .icon-glow {
+            transition: transform 0.3s ease, filter 0.3s ease;
+        }
+        .icon-glow:hover {
+            transform: scale(1.1);
+            filter: drop-shadow(0 0 8px rgba(255, 255, 255, 0.7));
+        }
+
+    </style>
+</head>
+<body class="text-white">
+
+    <!-- Header Section -->
+    <header class="relative text-white py-20 md:py-32">
+        <div class="relative container mx-auto px-6 text-center">
+            <h1 class="text-5xl md:text-7xl font-bold font-lobster tracking-wider text-shadow-lg" style="text-shadow: 2px 2px 4px rgba(0,0,0,0.4);">Wexford Family Adventure</h1>
+            <p class="mt-4 text-xl md:text-2xl font-light font-poppins" style="text-shadow: 1px 1px 2px rgba(0,0,0,0.4);">Your Unforgettable 6-Day Summer Itinerary</p>
+        </div>
+    </header>
+
+    <!-- Main Content -->
+    <main class="container mx-auto p-4 md:p-8">
+        <div class="space-y-12">
+
+            <!-- Day Cards - The 'scroll-animate' class is targeted by JS -->
+            <!-- Day 1 Card -->
+            <div class="glass-card shadow-2xl scroll-animate">
+                <div class="p-6 md:p-8">
+                    <h2 class="text-3xl md:text-4xl font-bold font-poppins mb-2">Day 1: Arrival & Beach Bliss</h2>
+                    <p class="font-light text-lg mb-8">Settle in and hit the sand!</p>
+                    <ul class="space-y-6">
+                        <li class="flex items-center space-x-4"><div class="icon-glow">🏠</div><div><h3 class="font-semibold text-lg">Check-In:</h3><p>Settle into **Upton Court Hotel** or a cozy seaside cottage.</p></div></li>
+                        <li class="flex items-center space-x-4"><div class="icon-glow">🥤</div><div><h3 class="font-semibold text-lg">Cool Off:</h3><p>Grab smoothies at **Kate’s Coffee Shop & Deli**.</p></div></li>
+                        <li class="flex items-center space-x-4"><div class="icon-glow">🏖️</div><div><h3 class="font-semibold text-lg">Beach Afternoon:</h3><p>Paddle and build sandcastles at **Morriscastle Beach**.</p></div></li>
+                        <li class="flex items-center space-x-4"><div class="icon-glow">🍽️</div><div><h3 class="font-semibold text-lg">Family Dinner:</h3><p>Enjoy outdoor seating at **Lawler’s of Morriscastle**.</p></div></li>
+                    </ul>
+                </div>
+            </div>
+
+            <!-- Day 2 Card -->
+            <div class="glass-card shadow-2xl scroll-animate">
+                <div class="p-6 md:p-8">
+                    <h2 class="text-3xl md:text-4xl font-bold font-poppins mb-2">Day 2: Wildlife Wonders</h2>
+                    <p class="font-light text-lg mb-8">An adventure with furry and scaly friends!</p>
+                    <ul class="space-y-6">
+                        <li class="flex items-center space-x-4"><div class="icon-glow">👟</div><div><h3 class="font-semibold text-lg">Morning Stroll:</h3><p>Take the buggy-friendly **Kilmuckridge-Morriscastle Trail**.</p></div></li>
+                        <li class="flex items-center space-x-4"><div class="icon-glow">🦙</div><div><h3 class="font-semibold text-lg">Wildlife Park:</h3><p>Visit **Secret Valley Wildlife Park** and try pony rides!</p></div></li>
+                        <li class="flex items-center space-x-4"><div class="icon-glow">🐍</div><div><h3 class="font-semibold text-lg">Reptile Zone:</h3><p>Don't miss the park's new and exciting reptile area.</p></div></li>
+                        <li class="flex items-center space-x-4"><div class="icon-glow">🍦</div><div><h3 class="font-semibold text-lg">Sweet Treat:</h3><p>Grab local ice cream in Gorey at **Partridges**.</p></div></li>
+                    </ul>
+                </div>
+            </div>
+
+            <!-- Day 3 Card -->
+            <div class="glass-card shadow-2xl scroll-animate">
+                <div class="p-6 md:p-8">
+                    <h2 class="text-3xl md:text-4xl font-bold font-poppins mb-2">Day 3: Wells House Adventure</h2>
+                    <p class="font-light text-lg mb-8">A full day of magic, animals, and history.</p>
+                    <ul class="space-y-6">
+                        <li class="flex items-center space-x-4"><div class="icon-glow">🧚</div><div><h3 class="font-semibold text-lg">Fairy Trails:</h3><p>Explore the magical woodland trails at **Wells House & Gardens**.</p></div></li>
+                        <li class="flex items-center space-x-4"><div class="icon-glow">🏹</div><div><h3 class="font-semibold text-lg">Try Archery:</h3><p>Test your aim with a fun archery session on site.</p></div></li>
+                        <li class="flex items-center space-x-4"><div class="icon-glow">☕</div><div><h3 class="font-semibold text-lg">Lunch Stop:</h3><p>Refuel with tasty treats at the on-site **Brambles Café**.</p></div></li>
+                        <li class="flex items-center space-x-4"><div class="icon-glow">🌸</div><div><h3 class="font-semibold text-lg">Optional Detour:</h3><p>Visit the serene **Glenavon Japanese Garden**.</p></div></li>
+                    </ul>
+                </div>
+            </div>
+
+            <!-- Day 4 Card -->
+            <div class="glass-card shadow-2xl scroll-animate">
+                <div class="p-6 md:p-8">
+                    <h2 class="text-3xl md:text-4xl font-bold font-poppins mb-2">Day 4: Castles & Crafts</h2>
+                    <p class="font-light text-lg mb-8">History, nature, and a splash of creativity.</p>
+                    <ul class="space-y-6">
+                        <li class="flex items-center space-x-4"><div class="icon-glow">🏰</div><div><h3 class="font-semibold text-lg">Enniscorthy Castle:</h3><p>A quick drive to explore a historic landmark.</p></div></li>
+                        <li class="flex items-center space-x-4"><div class="icon-glow">🚲</div><div><h3 class="font-semibold text-lg">Cycle the Sandhills:</h3><p>Enjoy a ride or walk around the **Tinnaberna Sandhills**.</p></div></li>
+                        <li class="flex items-center space-x-4"><div class="icon-glow">🎨</div><div><h3 class="font-semibold text-lg">Get Crafty:</h3><p>Try pottery painting at **Claymazing** or **Art It** in Gorey.</p></div></li>
+                        <li class="flex items-center space-x-4"><div class="icon-glow">🍕</div><div><h3 class="font-semibold text-lg">Picnic Dinner:</h3><p>Grab takeaway pizza for a relaxing garden picnic.</p></div></li>
+                    </ul>
+                </div>
+            </div>
+
+            <!-- Day 5 Card -->
+            <div class="glass-card shadow-2xl scroll-animate">
+                <div class="p-6 md:p-8">
+                    <h2 class="text-3xl md:text-4xl font-bold font-poppins mb-2">Day 5: Festivities & Free Play</h2>
+                    <p class="font-light text-lg mb-8">Enjoy local markets and lazy beach days.</p>
+                    <ul class="space-y-6">
+                        <li class="flex items-center space-x-4"><div class="icon-glow">🛍️</div><div><h3 class="font-semibold text-lg">Summer Markets:</h3><p>Browse the weekend market stalls in nearby towns.</p></div></li>
+                        <li class="flex items-center space-x-4"><div class="icon-glow">🪁</div><div><h3 class="font-semibold text-lg">Beach Chill Time:</h3><p>Fly a kite or play frisbee at **Ballinoulart Beach**.</p></div></li>
+                        <li class="flex items-center space-x-4"><div class="icon-glow">🎁</div><div><h3 class="font-semibold text-lg">Pick Up Souvenirs:</h3><p>Grab a memento or a new book from a local store.</p></div></li>
+                        <li class="flex items-center space-x-4"><div class="icon-glow">🖍️</div><div><h3 class="font-semibold text-lg">Kids' Crafts:</h3><p>Enjoy drop-in craft sessions at **The Greenhouse Café**.</p></div></li>
+                    </ul>
+                </div>
+            </div>
+            
+            <!-- Day 6 Card -->
+            <div class="glass-card shadow-2xl scroll-animate">
+                <div class="p-6 md:p-8">
+                    <h2 class="text-3xl md:text-4xl font-bold font-poppins mb-2">Day 6: Farewell Fun</h2>
+                    <p class="font-light text-lg mb-8">One last adventure before heading home.</p>
+                    <ul class="space-y-6">
+                        <li class="flex items-center space-x-4"><div class="icon-glow">🎭</div><div><h3 class="font-semibold text-lg">Catch a Show:</h3><p>See a family-friendly play at the **Kilmuckridge Drama Festival**.</p></div></li>
+                        <li class="flex items-center space-x-4"><div class="icon-glow">🍝</div><div><h3 class="font-semibold text-lg">Farewell Brunch:</h3><p>Enjoy a final meal at **Da Paolo Italian Restaurant**.</p></div></li>
+                        <li class="flex items-center space-x-4"><div class="icon-glow">🚶‍♂️</div><div><h3 class="font-semibold text-lg">One Last Stroll:</h3><p>Stop by **Wexford town** on the way home for a walk.</p></div></li>
+                        <li class="flex items-center space-x-4"><div class="icon-glow">🍨</div><div><h3 class="font-semibold text-lg">The Final Ice Cream:</h3><p>It's a tradition! One last scoop before the journey ends.</p></div></li>
+                    </ul>
+                </div>
+            </div>
+
+        </div>
+    </main>
+
+    <!-- Footer -->
+    <footer class="text-white mt-16 py-8">
+        <div class="container mx-auto px-6 text-center font-poppins">
+            <p>&copy; 2025 Your Wexford Adventure. Have a wonderful trip!</p>
+            <p class="text-sm text-white/70 mt-2">Created with fun and sunshine in mind.</p>
+        </div>
+    </footer>
+
+    <script>
+        // JavaScript for Scroll Animations
+        const scrollElements = document.querySelectorAll('.scroll-animate');
+
+        const elementInView = (el, dividend = 1) => {
+            const elementTop = el.getBoundingClientRect().top;
+            return (
+                elementTop <= (window.innerHeight || document.documentElement.clientHeight) / dividend
+            );
+        };
+
+        const displayScrollElement = (element) => {
+            element.classList.add('is-visible');
+        };
+
+        const hideScrollElement = (element) => {
+            element.classList.remove('is-visible');
+        }
+
+        const handleScrollAnimation = () => {
+            scrollElements.forEach((el) => {
+                if (elementInView(el, 1.25)) {
+                    displayScrollElement(el);
+                } 
+                // Optional: to make animation repeat if you scroll up and down
+                // else {
+                //     hideScrollElement(el);
+                // }
+            })
+        }
+
+        window.addEventListener('scroll', () => {
+            handleScrollAnimation();
+        });
+        
+        // Trigger on initial load
+        handleScrollAnimation();
+    </script>
+</body>
+</html>
