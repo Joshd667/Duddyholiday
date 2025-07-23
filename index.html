@@ -8,327 +8,435 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700&family=Poppins:wght@300;500;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY=" crossorigin="" />
     <style>
-        /* --- Custom Fonts --- */
         .font-playfair { font-family: 'Playfair Display', serif; }
         body { font-family: 'Poppins', sans-serif; }
-
-        /* --- Animated Gradient Background (Original) --- */
         body {
             background: linear-gradient(-45deg, #ee7752, #e73c7e, #23a6d5, #23d5ab);
             background-size: 400% 400%;
             animation: gradientBG 25s ease infinite;
         }
-
         @keyframes gradientBG {
             0% { background-position: 0% 50%; }
             50% { background-position: 100% 50%; }
             100% { background-position: 0% 50%; }
         }
-
-        /* --- Glassmorphism Card Style --- */
         .glass-card {
             background: rgba(255, 255, 255, 0.15);
             backdrop-filter: blur(12px);
             -webkit-backdrop-filter: blur(12px);
             border: 1px solid rgba(255, 255, 255, 0.2);
-            border-radius: 1.5rem; /* 24px */
+            border-radius: 1.5rem;
             position: relative;
             overflow: hidden;
-            transition: transform 0.5s cubic-bezier(0.25, 1, 0.5, 1);
+            transition: transform 0.5s cubic-bezier(0.25, 1, 0.5, 1), box-shadow 0.3s ease;
+            cursor: pointer;
         }
+        .glass-card:hover { box-shadow: 0 20px 40px rgba(0,0,0,0.2); }
         .glass-card::before {
-            content: '';
-            position: absolute;
-            top: 0; right: 0; bottom: 0; left: 0;
-            background-repeat: repeat;
-            background-size: auto;
-            background-position: center;
-            opacity: 0.05;
-            z-index: -1;
-            transition: opacity 0.4s ease, transform 0.4s ease;
+            content: ''; position: absolute; top: 0; right: 0; bottom: 0; left: 0;
+            background-repeat: repeat; background-size: auto; background-position: center;
+            opacity: 0.05; z-index: -1; transition: opacity 0.4s ease, transform 0.4s ease;
         }
-        .glass-card:hover::before {
-            opacity: 0.1;
-            transform: scale(1.1);
+        .glass-card:hover::before { opacity: 0.1; transform: scale(1.1); }
+        .texture-beach::before { background-image: url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23ffffff' fill-opacity='0.4'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E"); }
+        .texture-nature::before { background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='28' height='49' viewBox='0 0 28 49'%3E%3Cg fill-rule='evenodd'%3E%3Cg id='hexagons' fill='%23ffffff' fill-opacity='0.4' fill-rule='nonzero'%3E%3Cpath d='M13.99 9.25l13 7.5v15l-13 7.5L1 31.75v-15l12.99-7.5zM3 17.9v12.7l10.99 6.34 11-6.35V17.9l-11-6.34L3 17.9zM0 15l12.99-7.5L26 15v18.5l-13 7.5L0 33.5V15z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E"); }
+        .texture-adventure::before { background-image: url("data:image/svg+xml,%3Csvg width='40' height='40' viewBox='0 0 40 40' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='%23ffffff' fill-opacity='0.4' fill-rule='evenodd'%3E%3Cpath d='M0 40L40 0H20L0 20M40 40V20L20 40'/%3E%3C/g%3E%3C/svg%3E"); }
+        .texture-crafts::before { background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='40' height='40' viewBox='0 0 40 40'%3E%3Cg fill-rule='evenodd'%3E%3Cg fill='%23ffffff' fill-opacity='0.4'%3E%3Cpath d='M0 38.59l2.83-2.83 1.41 1.41L1.41 40H0v-1.41zM0 1.4l2.83 2.83 1.41-1.41L1.41 0H0v1.41zM38.59 40l-2.83-2.83 1.41-1.41L40 38.59V40h-1.41zM40 1.41l-2.83 2.83-1.41-1.41L38.59 0H40v1.41zM20 18.6l2.83-2.83 1.41 1.41L21.41 20l2.83 2.83-1.41 1.41L20 21.41l-2.83 2.83-1.41-1.41L18.59 20l-2.83-2.83 1.41-1.41L20 18.59z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E"); }
+        #map-section { transition: all 0.4s ease-in-out; }
+        #map {
+            height: 400px; border-radius: 1.5rem; border: 1px solid rgba(255, 255, 255, 0.2);
+            box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.37); z-index: 10;
+            transition: height 0.4s ease-in-out;
         }
-        
-        /* --- SVG Background Textures --- */
-        .texture-beach::before {
-             background-image: url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23ffffff' fill-opacity='0.4'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
-        }
-        .texture-nature::before {
-            background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='28' height='49' viewBox='0 0 28 49'%3E%3Cg fill-rule='evenodd'%3E%3Cg id='hexagons' fill='%23ffffff' fill-opacity='0.4' fill-rule='nonzero'%3E%3Cpath d='M13.99 9.25l13 7.5v15l-13 7.5L1 31.75v-15l12.99-7.5zM3 17.9v12.7l10.99 6.34 11-6.35V17.9l-11-6.34L3 17.9zM0 15l12.99-7.5L26 15v18.5l-13 7.5L0 33.5V15z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
-        }
-        .texture-adventure::before {
-            background-image: url("data:image/svg+xml,%3Csvg width='40' height='40' viewBox='0 0 40 40' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='%23ffffff' fill-opacity='0.4' fill-rule='evenodd'%3E%3Cpath d='M0 40L40 0H20L0 20M40 40V20L20 40'/%3E%3C/g%3E%3C/svg%3E");
-        }
-        .texture-crafts::before {
-            background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='40' height='40' viewBox='0 0 40 40'%3E%3Cg fill-rule='evenodd'%3E%3Cg fill='%23ffffff' fill-opacity='0.4'%3E%3Cpath d='M0 38.59l2.83-2.83 1.41 1.41L1.41 40H0v-1.41zM0 1.4l2.83 2.83 1.41-1.41L1.41 0H0v1.41zM38.59 40l-2.83-2.83 1.41-1.41L40 38.59V40h-1.41zM40 1.41l-2.83 2.83-1.41-1.41L38.59 0H40v1.41zM20 18.6l2.83-2.83 1.41 1.41L21.41 20l2.83 2.83-1.41 1.41L20 21.41l-2.83 2.83-1.41-1.41L18.59 20l-2.83-2.83 1.41-1.41L20 18.59z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
-        }
-
-        /* --- Timeline Structure --- */
-        .timeline-container {
-            position: relative;
-            max-width: 1000px;
-            margin: 0 auto;
-        }
+        .leaflet-pane, .leaflet-top, .leaflet-bottom { z-index: 10 !important; }
+        .timeline-container { position: relative; max-width: 1000px; margin: 0 auto; }
         .timeline-container::after {
-            content: '';
-            position: absolute;
-            width: 4px;
-            background-color: rgba(255, 255, 255, 0.25);
-            top: 0;
-            bottom: 0;
-            left: 50%;
-            margin-left: -2px;
-            z-index: -1;
-            border-radius: 2px;
+            content: ''; position: absolute; width: 4px; background-color: rgba(255, 255, 255, 0.25);
+            top: 0; bottom: 0; left: 50%; margin-left: -2px; z-index: -1; border-radius: 2px;
         }
-        .timeline-item {
-            padding: 10px 40px;
-            position: relative;
-            width: 50%;
-        }
+        .timeline-item { padding: 10px 40px; position: relative; width: 50%; }
         .timeline-item .timeline-dot {
-            content: '';
-            position: absolute;
-            width: 20px;
-            height: 20px;
-            right: -10px;
-            background-color: white;
-            border: 4px solid;
-            top: 25px;
-            border-radius: 50%;
-            z-index: 1;
-            transition: transform 0.3s ease;
+            content: ''; position: absolute; width: 20px; height: 20px; right: -10px;
+            background-color: white; border: 4px solid; top: 25px; border-radius: 50%;
+            z-index: 1; transition: transform 0.3s ease;
         }
-        .timeline-item:hover .timeline-dot {
-            transform: scale(1.2);
-        }
+        .timeline-item:hover .timeline-dot { transform: scale(1.2); }
         .timeline-left { left: 0; }
         .timeline-right { left: 50%; }
         .timeline-right .timeline-dot { left: -10px; }
-        
-        /* Mobile Interaction */
-        .glass-card:active {
-             transform: scale(0.98);
-        }
-
+        .glass-card:active { transform: scale(0.98); }
         @media screen and (max-width: 768px) {
+            #map { height: 300px; }
             .timeline-container::after { left: 21px; }
             .timeline-item { width: 100%; padding-left: 70px; padding-right: 25px; }
-            .timeline-item::before { /* Mobile line connector */
-                content: '';
-                position: absolute;
-                width: 50px;
-                height: 2px;
-                background-color: rgba(255, 255, 255, 0.25);
-                top: 33px;
-                left: 20px;
-                z-index: 0;
+            .timeline-item::before {
+                content: ''; position: absolute; width: 50px; height: 2px;
+                background-color: rgba(255, 255, 255, 0.25); top: 33px; left: 20px; z-index: 0;
             }
             .timeline-left, .timeline-right { left: 0; }
             .timeline-left .timeline-dot, .timeline-right .timeline-dot { left: 11px; }
+            .map-is-sticky {
+                position: fixed !important; top: 0; left: 0; right: 0; z-index: 1000;
+                padding: 8px !important; background: rgba(0,0,0,0.2);
+                backdrop-filter: blur(10px); -webkit-backdrop-filter: blur(10px);
+                margin-top: 0 !important;
+            }
+            .map-is-sticky #map { height: 20vh; border-radius: 0.75rem; }
+            .timeline-container.pushed-down { padding-top: calc(20vh + 16px); }
         }
-
-        /* --- Scroll Animations --- */
         .scroll-animate {
             opacity: 0;
             transition: opacity 0.8s ease-out, transform 0.6s cubic-bezier(0.175, 0.885, 0.32, 1.275);
         }
         .timeline-left .scroll-animate { transform: translateX(-50px); }
         .timeline-right .scroll-animate { transform: translateX(50px); }
-        .scroll-animate.is-visible {
-            opacity: 1;
-            transform: translateX(0);
+        @media screen and (max-width: 768px) {
+            .timeline-left .scroll-animate, .timeline-right .scroll-animate { transform: translateX(50px); }
         }
-        
-        .b-strong {
-            font-weight: 600;
-            color: rgba(255, 255, 255, 0.95);
+        .scroll-animate.is-visible { opacity: 1; transform: translateX(0); }
+        .b-strong { font-weight: 600; color: rgba(255, 255, 255, 0.95); }
+        .location-link {
+            cursor: pointer;
+            text-decoration: underline;
+            text-decoration-color: rgba(255, 255, 255, 0.4);
+            transition: text-decoration-color 0.3s;
         }
+        .location-link:hover { text-decoration-color: rgba(255, 255, 255, 0.9); }
     </style>
 </head>
 <body class="text-white/80">
-
-    <!-- Header Section -->
     <header class="relative text-white py-24 md:py-36 text-center overflow-hidden">
         <div class="relative z-10">
             <h1 class="text-5xl md:text-7xl font-playfair tracking-wide" style="text-shadow: 3px 3px 6px rgba(0,0,0,0.4);">Wexford Family Adventure</h1>
             <p class="mt-4 text-xl md:text-2xl font-light font-poppins" style="text-shadow: 2px 2px 4px rgba(0,0,0,0.4);">Your Unforgettable Summer Itinerary</p>
-            <svg class="mx-auto mt-12 h-10 w-10 text-white animate-bounce" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 14l-7 7m0 0l-7-7m7 7V3" />
-            </svg>
         </div>
     </header>
-
-    <!-- Main Content -->
+    <section id="map-section" class="max-w-4xl mx-auto px-4 md:px-8 -mt-20 md:-mt-28 mb-16 relative z-10">
+        <div id="map"></div>
+    </section>
     <main class="timeline-container py-12">
         
-        <!-- Day 1 -->
         <div class="timeline-item timeline-left">
             <div class="timeline-dot" style="border-color: #e73c7e;"></div>
-            <div class="glass-card texture-beach shadow-2xl scroll-animate" data-tilt>
+            <div id="card-day1" class="glass-card texture-beach shadow-2xl scroll-animate" data-tilt
+                 data-locations='[
+                    {"lat": 52.5434, "lng": -6.2951, "name": "Upton Court Hotel"},
+                    {"lat": 52.5401, "lng": -6.2936, "name": "Morriscastle Beach"},
+                    {"lat": 52.5427, "lng": -6.2958, "name": "Lawler’s of Morriscastle"}
+                 ]'>
                 <div class="p-6 md:p-8 relative z-10">
                     <h3 class="text-sm font-semibold uppercase tracking-wider" style="color: #e73c7e;">Day 1</h3>
                     <h2 class="text-3xl font-playfair mb-4 text-white">Arrival & Summer Beach Bliss</h2>
                     <ul class="space-y-4 font-light text-lg">
-                        <li>🏨 Check into <b class="b-strong">Upton Court Hotel</b> or a seaside cottage.</li>
+                        <li> 🏨  Check into <b class="b-strong location-link" data-lat="52.5434" data-lng="-6.2951">Upton Court Hotel</b> or a seaside cottage.</li>
                         <li>🥤 Cool off with smoothies and treats at <b class="b-strong">Kate’s Coffee Shop & Deli</b>.</li>
-                        <li>🏖️ Spend the afternoon at <b class="b-strong">Morriscastle Beach</b>: great for paddling, sandcastle building, and hunting for seashells.</li>
-                        <li>🍽️ Evening family dinner at <b class="b-strong">Lawler’s of Morriscastle</b> (outdoor seating available!).</li>
+                        <li>🏖️ Spend the afternoon at <b class="b-strong location-link" data-lat="52.5401" data-lng="-6.2936">Morriscastle Beach</b>: great for paddling, sandcastle building, and hunting for seashells.</li>
+                        <li>🍽️ Evening family dinner at <b class="b-strong location-link" data-lat="52.5427" data-lng="-6.2958">Lawler’s of Morriscastle</b> (outdoor seating available!).</li>
                     </ul>
                 </div>
             </div>
         </div>
-
-        <!-- Day 2 -->
         <div class="timeline-item timeline-right">
             <div class="timeline-dot" style="border-color: #23d5ab;"></div>
-            <div class="glass-card texture-nature shadow-2xl scroll-animate" data-tilt>
+            <div id="card-day2" class="glass-card texture-nature shadow-2xl scroll-animate" data-tilt
+                 data-locations='[
+                    {"lat": 52.5310, "lng": -6.3012, "name": "Kilmuckridge-Morriscastle Trail"},
+                    {"lat": 52.4087, "lng": -6.6029, "name": "Secret Valley Wildlife Park"},
+                    {"lat": 52.6750, "lng": -6.2905, "name": "Partridges, Gorey"}
+                 ]'>
                 <div class="p-6 md:p-8 relative z-10">
                     <h3 class="text-sm font-semibold uppercase tracking-wider" style="color: #23d5ab;">Day 2</h3>
                     <h2 class="text-3xl font-playfair mb-4 text-white">Nature Walk & Wildlife Wonders</h2>
                     <ul class="space-y-4 font-light text-lg">
-                        <li>👟 Morning stroll on the buggy-friendly <b class="b-strong">Kilmuckridge-Morriscastle Trail</b>.</li>
-                        <li>🦙 Drive to <b class="b-strong">Secret Valley Wildlife Park</b>—August means extended hours and more interactive animal sessions.</li>
-                        <li>🐍 Visit the new <b class="b-strong">reptile zone</b> or try pony rides (check ahead for booking).</li>
-                        <li>🍦 Grab ice cream on the way back in <b class="b-strong">Gorey</b>—try <b class="b-strong">Partridges</b> for local flavors!</li>
+                        <li> 👟  Morning stroll on the buggy-friendly <b class="b-strong location-link" data-lat="52.5310" data-lng="-6.3012">Kilmuckridge-Morriscastle Trail</b>.</li>
+                        <li>🦙 Drive to <b class="b-strong location-link" data-lat="52.4087" data-lng="-6.6029">Secret Valley Wildlife Park</b>—August means extended hours and more interactive animal sessions.</li>
+                        <li> 🐍  Visit the new <b class="b-strong">reptile zone</b> or try pony rides (check ahead for booking).</li>
+                        <li> 🍦  Grab ice cream on the way back in <b class="b-strong">Gorey</b>—try <b class="b-strong location-link" data-lat="52.6750" data-lng="-6.2905">Partridges</b> for local flavors!</li>
                     </ul>
                 </div>
             </div>
         </div>
         
-        <!-- Day 3 -->
         <div class="timeline-item timeline-left">
             <div class="timeline-dot" style="border-color: #ee7752;"></div>
-            <div class="glass-card texture-adventure shadow-2xl scroll-animate" data-tilt>
+            <div id="card-day3" class="glass-card texture-adventure shadow-2xl scroll-animate" data-tilt
+                 data-locations='[
+                    {"lat": 52.5695, "lng": -6.4526, "name": "Wells House & Gardens"},
+                    {"lat": 52.5701, "lng": -6.4520, "name": "Brambles Café"},
+                    {"lat": 52.5888, "lng": -6.3486, "name": "Glenavon Japanese Garden"}
+                 ]'>
                 <div class="p-6 md:p-8 relative z-10">
                     <h3 class="text-sm font-semibold uppercase tracking-wider" style="color: #ee7752;">Day 3</h3>
                     <h2 class="text-3xl font-playfair mb-4 text-white">Wells House Adventure Day</h2>
                     <ul class="space-y-4 font-light text-lg">
-                        <li>Full day at <b class="b-strong">Wells House & Gardens</b>:</li>
-                        <li class="ml-4">🌳 Fairy woodland trails</li>
+                        <li>Full day at <b class="b-strong location-link" data-lat="52.5695" data-lng="-6.4526">Wells House & Gardens</b>:</li>
+                        <li class="ml-4"> 🌳  Fairy woodland trails</li>
                         <li class="ml-4">🏹 Petting farm and archery sessions</li>
-                        <li class="ml-4">🎉 Special summer treasure hunts and storytelling events</li>
-                        <li>☕ Lunch at the on-site <b class="b-strong">Brambles Café</b>.</li>
-                        <li>🌸 If your crew’s not too tired, make a quick detour to <b class="b-strong">Glenavon Japanese Garden</b>.</li>
+                        <li class="ml-4"> 🎉  Special summer treasure hunts and storytelling events</li>
+                        <li> ☕  Lunch at the on-site <b class="b-strong location-link" data-lat="52.5701" data-lng="-6.4520">Brambles Café</b>.</li>
+                        <li> 🌸  If your crew’s not too tired, make a quick detour to <b class="b-strong location-link" data-lat="52.5888" data-lng="-6.3486">Glenavon Japanese Garden</b>.</li>
                     </ul>
                 </div>
             </div>
         </div>
-
-        <!-- Day 4 -->
         <div class="timeline-item timeline-right">
             <div class="timeline-dot" style="border-color: #e73c7e;"></div>
-            <div class="glass-card texture-crafts shadow-2xl scroll-animate" data-tilt>
+            <div id="card-day4" class="glass-card texture-crafts shadow-2xl scroll-animate" data-tilt
+                 data-locations='[
+                    {"lat": 52.5768, "lng": -6.5838, "name": "Enniscorthy Castle"},
+                    {"lat": 52.4700, "lng": -6.3200, "name": "Tinnaberna Sandhills"},
+                    {"lat": 52.6766, "lng": -6.2933, "name": "Gorey Craft Shops"}
+                 ]'>
                 <div class="p-6 md:p-8 relative z-10">
                     <h3 class="text-sm font-semibold uppercase tracking-wider" style="color: #e73c7e;">Day 4</h3>
                     <h2 class="text-3xl font-playfair mb-4 text-white">Castle Explorers & Crafts</h2>
                     <ul class="space-y-4 font-light text-lg">
-                        <li>🏰 Visit <b class="b-strong">Enniscorthy Castle</b> (25 minutes drive).</li>
-                        <li>🚲 Cycle or walk around the <b class="b-strong">Tinnaberna Sandhills</b>.</li>
-                        <li>🎨 Afternoon pottery painting or craft workshop in Gorey (check <b class="b-strong">Claymazing</b> or <b class="b-strong">Art It</b> for kids’ classes).</li>
-                        <li>🍕 Grab takeaway pizza or fish & chips and have a garden picnic.</li>
+                        <li> 🏰  Visit <b class="b-strong location-link" data-lat="52.5768" data-lng="-6.5838">Enniscorthy Castle</b> (25 minutes drive).</li>
+                        <li> 🚲  Cycle or walk around the <b class="b-strong location-link" data-lat="52.4700" data-lng="-6.3200">Tinnaberna Sandhills</b>.</li>
+                        <li> 🎨  Afternoon pottery painting or craft workshop in Gorey (check <b class="b-strong location-link" data-lat="52.6766" data-lng="-6.2933">Claymazing</b> or <b class="b-strong location-link" data-lat="52.6766" data-lng="-6.2933">Art It</b> for kids’ classes).</li>
+                        <li> 🍕  Grab takeaway pizza or fish & chips and have a garden picnic.</li>
                     </ul>
                 </div>
             </div>
         </div>
-
-        <!-- Day 5 -->
         <div class="timeline-item timeline-left">
             <div class="timeline-dot" style="border-color: #23a6d5;"></div>
-            <div class="glass-card texture-beach shadow-2xl scroll-animate" data-tilt>
+            <div id="card-day5" class="glass-card texture-beach shadow-2xl scroll-animate" data-tilt
+                 data-locations='[
+                    {"lat": 52.5185, "lng": -6.3113, "name": "The Greenhouse Café"},
+                    {"lat": 52.4958, "lng": -6.3155, "name": "Ballinoulart Beach"}
+                 ]'>
                 <div class="p-6 md:p-8 relative z-10">
                     <h3 class="text-sm font-semibold uppercase tracking-wider" style="color: #23a6d5;">Day 5</h3>
                     <h2 class="text-3xl font-playfair mb-4 text-white">Festivities & Free Play</h2>
                      <ul class="space-y-4 font-light text-lg">
                         <li>🛍️ Browse the <b class="b-strong">summer market stalls</b> (often held weekends in nearby towns).</li>
-                        <li>🖍️ Enjoy drop-in <b class="b-strong">kids' craft sessions</b> at <b class="b-strong">The Greenhouse Café</b>.</li>
-                        <li>🪁 Late afternoon chill at <b class="b-strong">Ballinoulart Beach</b>—kite flying, frisbee, or just some lazy digging.</li>
-                        <li>📚 Scoop up souvenirs or books from local stores.</li>
+                        <li>🖍️ Enjoy drop-in <b class="b-strong">kids' craft sessions</b> at <b class="b-strong location-link" data-lat="52.5185" data-lng="-6.3113">The Greenhouse Café</b>.</li>
+                        <li>🪁 Late afternoon chill at <b class="b-strong location-link" data-lat="52.4958" data-lng="-6.3155">Ballinoulart Beach</b>—kite flying, frisbee, or just some lazy digging.</li>
+                        <li> 📚  Scoop up souvenirs or books from local stores.</li>
                     </ul>
                 </div>
             </div>
         </div>
-
-        <!-- Day 6 -->
         <div class="timeline-item timeline-right">
             <div class="timeline-dot" style="border-color: #ee7752;"></div>
-            <div class="glass-card texture-adventure shadow-2xl scroll-animate" data-tilt>
+            <div id="card-day6" class="glass-card texture-adventure shadow-2xl scroll-animate" data-tilt
+                 data-locations='[
+                    {"lat": 52.5180, "lng": -6.3100, "name": "Kilmuckridge Drama Festival Location"},
+                    {"lat": 52.3375, "lng": -6.4680, "name": "Da Paolo Italian Restaurant"},
+                    {"lat": 52.3427, "lng": -6.4604, "name": "Wexford Town"}
+                 ]'>
                 <div class="p-6 md:p-8 relative z-10">
                     <h3 class="text-sm font-semibold uppercase tracking-wider" style="color: #ee7752;">Day 6</h3>
                     <h2 class="text-3xl font-playfair mb-4 text-white">Farewell Fun</h2>
                     <ul class="space-y-4 font-light text-lg">
-                        <li>🎭 If visiting mid-August, catch a daytime show during the <b class="b-strong">Kilmuckridge Drama Festival</b>.</li>
-                        <li>🍝 Brunch at <b class="b-strong">Da Paolo Italian Restaurant</b>.</li>
-                        <li>🚶‍♂️ Stop by <b class="b-strong">Wexford town</b> on the way home for one last stroll and ice cream.</li>
+                        <li> 🎭  If visiting mid-August, catch a daytime show during the <b class="b-strong location-link" data-lat="52.5180" data-lng="-6.3100">Kilmuckridge Drama Festival</b>.</li>
+                        <li> 🍝  Brunch at <b class="b-strong location-link" data-lat="52.3375" data-lng="-6.4680">Da Paolo Italian Restaurant</b>.</li>
+                        <li> 🚶 ‍ ♂️  Stop by <b class="b-strong location-link" data-lat="52.3427" data-lng="-6.4604">Wexford town</b> on the way home for one last stroll and ice cream.</li>
                     </ul>
                 </div>
             </div>
         </div>
-
     </main>
-
-    <!-- Footer -->
     <footer class="text-white mt-16 py-8">
         <div class="container mx-auto px-6 text-center font-poppins">
             <p>&copy; 2025 Your Wexford Adventure. Have a wonderful trip!</p>
             <p class="text-sm text-white/70 mt-2">Designed with fun and sunshine in mind.</p>
         </div>
     </footer>
-
+    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js" integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo=" crossorigin=""></script>
     <script>
-        // JavaScript for Scroll Animations
-        const scrollElements = document.querySelectorAll('.scroll-animate');
+        document.addEventListener('DOMContentLoaded', function () {
+            // --- Element Selections ---
+            const mapElement = document.getElementById('map');
+            const mapSection = document.getElementById('map-section');
+            const timelineContainer = document.querySelector('.timeline-container');
+            const cards = document.querySelectorAll('.glass-card');
 
-        const elementInView = (el, dividend = 1) => {
-            const elementTop = el.getBoundingClientRect().top;
-            return (
-                elementTop <= (window.innerHeight || document.documentElement.clientHeight) / dividend
-            );
-        };
+            // --- Leaflet Map Initialization ---
+            const map = L.map(mapElement, { scrollWheelZoom: false });
+            L.tileLayer('https://{s}.basemaps.cartocdn.com/rastertiles/voyager/{z}/{x}/{y}{r}.png', {
+                attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors &copy; <a href="https://carto.com/attributions">CARTO</a>'
+            }).addTo(map);
 
-        const displayScrollElement = (element) => {
-            element.classList.add('is-visible');
-        };
+            // --- Icon Creation Functions ---
+            const createPinIcon = (color) => L.divIcon({
+                html: `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="${color}" width="32px" height="32px" style="filter: drop-shadow(0 2px 2px rgba(0,0,0,0.5));"><path d="M12 0C7.8 0 4 3.8 4 8.5c0 5.1 8 15.5 8 15.5s8-10.4 8-15.5C20 3.8 16.2 0 12 0zm0 12a3.5 3.5 0 1 1 0-7 3.5 3.5 0 0 1 0 7z"/></svg>`,
+                className: '', iconSize: [32, 32], iconAnchor: [16, 32], popupAnchor: [0, -32]
+            });
+            const createDotIcon = (color) => L.divIcon({
+                 html: `<div style="background-color: ${color}; width: 10px; height: 10px; border-radius: 50%; border: 1px solid white; box-shadow: 0 1px 2px rgba(0,0,0,0.5);"></div>`,
+                 className: 'leaflet-marker-icon', iconSize: [12, 12], iconAnchor: [6, 6]
+            });
 
-        const handleScrollAnimation = () => {
-            scrollElements.forEach((el) => {
-                if (elementInView(el, 1.15)) {
-                    displayScrollElement(el);
-                }
-            })
-        }
+            // --- Marker & Icon Setup ---
+            const highlightIcon = createPinIcon('#23a6d5');
+            const defaultIcon = createPinIcon('#6b7280');
+            const dotIcon = createDotIcon('#6b7280');
+            const allMarkers = [];
+            const overallBounds = L.latLngBounds();
 
-        window.addEventListener('scroll', handleScrollAnimation);
-        handleScrollAnimation(); // Trigger on initial load
-
-        // JavaScript for 3D Tilt Effect on Desktop
-        const isTouchDevice = () => 'ontouchstart' in window || navigator.maxTouchPoints > 0;
-
-        if (!isTouchDevice()) {
-            const tiltElements = document.querySelectorAll('[data-tilt]');
-
-            tiltElements.forEach(el => {
-                const height = el.clientHeight;
-                const width = el.clientWidth;
-
-                el.addEventListener('mousemove', (e) => {
-                    const x = e.layerX;
-                    const y = e.layerY;
-                    const rotateY = -1 * ((x - width / 2) / width * 8); // max 4deg rotation
-                    const rotateX = (y - height / 2) / height * 8; // max 4deg rotation
-
-                    el.style.transform = `perspective(1000px) rotateX(${rotateX}deg) rotateY(${rotateY}deg) scale3d(1.03, 1.03, 1.03)`;
+            // --- Data Processing & Marker Creation ---
+            cards.forEach(card => {
+                const locationsData = card.dataset.locations;
+                if (!locationsData) return;
+                
+                const locations = JSON.parse(locationsData);
+                const cardMarkers = [];
+                locations.forEach(loc => {
+                    const marker = L.marker([loc.lat, loc.lng], { icon: defaultIcon }).addTo(map);
+                    marker.bindPopup(`<b>${loc.name}</b>`);
+                    marker.cardId = card.id;
+                    allMarkers.push(marker);
+                    cardMarkers.push(marker);
+                    overallBounds.extend([loc.lat, loc.lng]);
                 });
+                card.markers = cardMarkers;
+            });
 
-                el.addEventListener('mouseout', () => {
-                    el.style.transform = 'perspective(1000px) rotateX(0) rotateY(0) scale3d(1, 1, 1)';
+            let lastVisibleCard = null;
+
+            // --- Map & Marker Update Functions ---
+            const updateMarkerStyles = (activeCard) => {
+                allMarkers.forEach(marker => {
+                    marker.setIcon(marker.cardId === activeCard.id ? highlightIcon : dotIcon);
+                });
+            };
+
+            const resetMapView = () => {
+                if (overallBounds.isValid()) {
+                    map.fitBounds(overallBounds, { padding: [50, 50], animate: true });
+                }
+                allMarkers.forEach(m => m.setIcon(defaultIcon));
+                lastVisibleCard = null;
+            };
+            
+            // --- Interactive Event Listeners ---
+            document.querySelectorAll('.location-link').forEach(link => {
+                link.addEventListener('click', (e) => {
+                    e.stopPropagation();
+                    const lat = e.target.dataset.lat;
+                    const lng = e.target.dataset.lng;
+                    if (lat && lng) {
+                        map.flyTo([lat, lng], 15, { animate: true });
+                    }
                 });
             });
-        }
+
+            cards.forEach(card => {
+                card.addEventListener('click', () => {
+                    if (card.markers && card.markers.length > 0) {
+                        const cardBounds = L.latLngBounds(card.markers.map(m => m.getLatLng()));
+                        map.fitBounds(cardBounds, { padding: [80, 80], animate: true, maxZoom: 15 });
+                        updateMarkerStyles(card);
+                        lastVisibleCard = card;
+                    }
+                });
+            });
+
+            // --- Main Scroll Handling Logic ---
+            const handleScroll = () => {
+                let mostVisibleCard = null;
+                let maxVisibility = 0;
+                
+                document.querySelectorAll('.glass-card').forEach(card => {
+                    const rect = card.getBoundingClientRect();
+                    const vh = window.innerHeight || document.documentElement.clientHeight;
+                    
+                    // Check if the card is in the viewport
+                    if (rect.top < vh && rect.bottom > 0) {
+                        // Animate the card in if it hasn't been already
+                        if (!card.classList.contains('is-visible')) {
+                           card.classList.add('is-visible');
+                        }
+                        
+                        // Determine which card is the "most" visible
+                        const visibleHeight = Math.min(rect.bottom, vh) - Math.max(rect.top, 0);
+                        if (visibleHeight > maxVisibility) {
+                            maxVisibility = visibleHeight;
+                            mostVisibleCard = card;
+                        }
+                    }
+                });
+
+                // Update the map to focus on the most visible card
+                if (mostVisibleCard && mostVisibleCard !== lastVisibleCard) {
+                    lastVisibleCard = mostVisibleCard;
+                    updateMarkerStyles(mostVisibleCard);
+                    if (mostVisibleCard.markers && mostVisibleCard.markers.length > 0) {
+                        const cardBounds = L.latLngBounds(mostVisibleCard.markers.map(m => m.getLatLng()));
+                        map.fitBounds(cardBounds, { padding: [80, 80], animate: true, maxZoom: 15 });
+                    }
+                }
+                
+                // Handle sticky map for mobile
+                if (window.innerWidth <= 768) {
+                    const stickyPoint = mapSection.offsetTop;
+                    if (window.pageYOffset > stickyPoint) {
+                        if (!mapSection.classList.contains('map-is-sticky')) {
+                            mapSection.classList.add('map-is-sticky');
+                            timelineContainer.classList.add('pushed-down');
+                            setTimeout(() => map.invalidateSize({ animate: true }), 200);
+                        }
+                    } else {
+                        if (mapSection.classList.contains('map-is-sticky')) {
+                            mapSection.classList.remove('map-is-sticky');
+                            timelineContainer.classList.remove('pushed-down');
+                            setTimeout(() => map.invalidateSize({ animate: true }), 200);
+                        }
+                    }
+                }
+                
+                // Reset map view if scrolled back to the top
+                if (window.pageYOffset < mapSection.offsetTop) {
+                    if (lastVisibleCard !== null) {
+                       resetMapView();
+                    }
+                }
+            };
+            
+            // --- Tilt Effect for Desktop ---
+            if (window.innerWidth > 768) {
+                document.querySelectorAll('[data-tilt]').forEach(el => {
+                    el.addEventListener('mousemove', (e) => {
+                        const { width, height, left, top } = el.getBoundingClientRect();
+                        const x = e.clientX - left; const y = e.clientY - top;
+                        const rotateY = -1 * ((x - width / 2) / width * 8);
+                        const rotateX = (y - height / 2) / height * 8;
+                        el.style.transform = `perspective(1000px) rotateX(${rotateX}deg) rotateY(${rotateY}deg) scale3d(1.03, 1.03, 1.03)`;
+                    });
+                    el.addEventListener('mouseout', () => {
+                        el.style.transform = 'perspective(1000px) rotateX(0) rotateY(0) scale3d(1, 1, 1)';
+                    });
+                });
+            }
+
+            // --- CORRECTED INITIALIZATION LOGIC ---
+            // This function will run once the page is fully loaded, ensuring all element
+            // dimensions are calculated and ready.
+            const initialLoad = () => {
+                // First, run the scroll handler to find the initially visible card,
+                // make it appear, and focus the map on it.
+                // We use requestAnimationFrame to ensure the first paint has completed.
+                requestAnimationFrame(() => {
+                    handleScroll();
+                });
+            };
+
+            // We use window.onload to ensure all assets (images, fonts, etc.) are loaded
+            // and the page layout is stable before we run our initial animation logic.
+            // This fixes the issue where the first card wasn't visible on load.
+            if (document.readyState === 'complete') {
+                initialLoad();
+            } else {
+                window.addEventListener('load', initialLoad);
+            }
+
+            // Add the main scroll event listener to handle interactions as the user scrolls.
+            window.addEventListener('scroll', handleScroll, { passive: true });
+        });
     </script>
 </body>
 </html>
