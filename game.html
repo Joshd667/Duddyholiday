@@ -456,7 +456,6 @@ body {
                 Explore the beautiful beaches and attractions of Wexford!<br>
                 Collect seashells, avoid obstacles, and discover famous Irish landmarks.
             </p>
-            <!-- FIX: Removed inline onclick event -->
             <button class="start-btn bounce">Start Adventure</button>
         </div>
         
@@ -561,7 +560,6 @@ body {
     </div>
     <!-- Mobile Touch Controls -->
     <div class="mobile-controls">
-        <!-- FIX: Removed inline ontouchstart and onclick events -->
         <div class="touch-button" id="specialBtn"> 💣 </div>
     </div>
     <!-- Game Over Screen -->
@@ -572,10 +570,10 @@ body {
             <p> 🏖️  Seashells Collected: <span id="finalShells">0</span></p>
             <p> 📍  Locations Visited: <span id="finalLocations">0</span></p>
         </div>
-        <!-- FIX: Changed to call functions directly instead of on window -->
         <button onclick="restartGame()">Play Again</button>
         <button onclick="showStartScreen()">Main Menu</button>
-        <button class="share-btn" onclick="shareScore()"> 📱  Share Score</button>
+        <!-- CHANGE: Updated onclick to call the new shareScore function -->
+        <button class="share-btn" onclick="shareScore(this)"> 📱  Share Score</button>
     </div>
 </div>
 <script>
@@ -595,10 +593,8 @@ document.addEventListener('DOMContentLoaded', function() {
     
     // Show appropriate controls
     if (isTouchDevice) {
-        // These elements exist in the HTML
         document.getElementById('desktop-controls').style.display = 'none';
         document.getElementById('mobile-controls-text').style.display = 'block';
-        // FIX: Removed references to non-existent 'desktop-instructions' and 'mobile-instructions' elements
     }
     
     // Game state
@@ -745,12 +741,10 @@ document.addEventListener('DOMContentLoaded', function() {
         switch(powerUp.type) {
             case 'magnet':
                 if (activePowerUps.magnet) {
-                    // Extend existing magnet timer
                     player.magnetRange += powerUp.duration;
                     activePowerUps.magnet.duration = player.magnetRange;
                     activePowerUps.magnet.maxDuration = Math.max(activePowerUps.magnet.maxDuration, player.magnetRange);
                 } else {
-                    // New magnet
                     player.magnetRange = powerUp.duration;
                     addPowerUpTimer('magnet', powerUp.duration, ' 🧲 ');
                 }
@@ -758,12 +752,10 @@ document.addEventListener('DOMContentLoaded', function() {
                 break;
             case 'shield':
                 if (activePowerUps.shield) {
-                    // Stack shields - add to existing timer
                     player.shieldTime += powerUp.duration;
                     activePowerUps.shield.duration = player.shieldTime;
                     activePowerUps.shield.maxDuration = Math.max(activePowerUps.shield.maxDuration, player.shieldTime);
                 } else {
-                    // New shield
                     player.shield = true;
                     player.shieldTime = powerUp.duration;
                     addPowerUpTimer('shield', powerUp.duration, ' 🛡️ ');
@@ -1003,7 +995,6 @@ document.addEventListener('DOMContentLoaded', function() {
                 powerUp.collected = true;
                 applyPowerUp(powerUp);
                 
-                // Enhanced visual feedback
                 createParticles(powerUp.x + powerUp.width/2, powerUp.y + powerUp.height/2, '#FFD700', 15);
                 createParticles(player.x + player.width/2, player.y + player.height/2, '#00FF00', 10);
                 
@@ -1017,7 +1008,7 @@ document.addEventListener('DOMContentLoaded', function() {
             }
         }
         
-        // Update atomic bombs (was lightning bolts)
+        // Update atomic bombs
         for (let i = lightningBolts.length - 1; i >= 0; i--) {
             const bomb = lightningBolts[i];
             bomb.life--;
@@ -1035,9 +1026,11 @@ document.addEventListener('DOMContentLoaded', function() {
             // Check if bomb hit obstacle
             let hitByBomb = false;
             for (let bomb of lightningBolts) {
-                if (obstacle.x > bomb.x - bomb.width/2 && 
-                    obstacle.x < bomb.x + bomb.width/2 &&
-                    obstacle.y < bomb.y + bomb.height) {
+                const dx = (obstacle.x + obstacle.width/2) - bomb.x;
+                const dy = (obstacle.y + obstacle.height/2) - bomb.y;
+                const distance = Math.sqrt(dx*dx + dy*dy);
+                const blastRadius = (bomb.maxLife - bomb.life + 1) * 15;
+                if(distance < blastRadius) {
                     hitByBomb = true;
                     break;
                 }
@@ -1067,11 +1060,9 @@ document.addEventListener('DOMContentLoaded', function() {
                 createParticles(player.x + player.width/2, player.y + player.height/2, '#FF0000', 12);
                 obstacles.splice(i, 1);
                 
-                // Enhanced screen shake and vibration
                 document.getElementById('gameContainer').classList.add('shake-screen');
                 setTimeout(() => document.getElementById('gameContainer').classList.remove('shake-screen'), 600);
                 
-                // Vibrate phone
                 vibratePhone();
                 
                 if (stats.lives <= 0) {
@@ -1135,13 +1126,13 @@ document.addEventListener('DOMContentLoaded', function() {
         // Draw clouds
         drawClouds();
         
-        // Draw atomic bomb blasts (was lightning)
+        // Draw atomic bomb blasts
         lightningBolts.forEach(bomb => {
             ctx.save();
             ctx.globalAlpha = bomb.life / bomb.maxLife;
             
-            // Create explosion effect
-            const gradient = ctx.createRadialGradient(bomb.x, bomb.y + 50, 0, bomb.x, bomb.y + 50, 60);
+            // CHANGE: Centered explosion on bomb's x and y
+            const gradient = ctx.createRadialGradient(bomb.x, bomb.y, 0, bomb.x, bomb.y, 60);
             gradient.addColorStop(0, '#FFFFFF');
             gradient.addColorStop(0.3, '#FFFF00');
             gradient.addColorStop(0.6, '#FF4500');
@@ -1151,15 +1142,17 @@ document.addEventListener('DOMContentLoaded', function() {
             // Draw expanding blast radius
             const blastRadius = (bomb.maxLife - bomb.life + 1) * 15;
             ctx.beginPath();
-            ctx.arc(bomb.x, bomb.y + 50, blastRadius, 0, Math.PI * 2);
+            // CHANGE: Centered arc on bomb's x and y
+            ctx.arc(bomb.x, bomb.y, blastRadius, 0, Math.PI * 2);
             ctx.fill();
             
             // Draw mushroom cloud
             ctx.font = '40px Arial';
             ctx.fillStyle = '#8B4513';
-            ctx.fillText(' ☁️ ', bomb.x - 20, bomb.y + 40);
+            // CHANGE: Centered emoji on bomb's x and y
+            ctx.fillText(' ☁️ ', bomb.x - 20, bomb.y + 10);
             ctx.fillStyle = '#FF4500';
-            ctx.fillText(' 💥 ', bomb.x - 15, bomb.y + 20);
+            ctx.fillText(' 💥 ', bomb.x - 15, bomb.y - 10);
             
             ctx.restore();
         });
@@ -1172,19 +1165,17 @@ document.addEventListener('DOMContentLoaded', function() {
             }
         });
         
-        // Draw power-ups with enhanced effects
+        // Draw power-ups
         powerUps.forEach(powerUp => {
             if (!powerUp.collected) {
                 ctx.font = '25px Arial';
                 
-                // Enhanced glow effect for power-ups
                 ctx.save();
                 ctx.shadowColor = '#FFD700';
                 ctx.shadowBlur = 20;
                 ctx.fillText(powerUp.emoji, powerUp.x, powerUp.y + 25);
                 ctx.restore();
                 
-                // Pulsing ring around power-up
                 ctx.save();
                 ctx.globalAlpha = 0.5 + Math.sin(Date.now() * 0.01) * 0.3;
                 ctx.strokeStyle = '#FFD700';
@@ -1208,7 +1199,6 @@ document.addEventListener('DOMContentLoaded', function() {
             ctx.font = '30px Arial';
             ctx.fillText(landmark.emoji, landmark.x, landmark.y + 30);
             
-            // Draw name if not visited
             if (!landmark.visited) {
                 ctx.font = '12px Arial';
                 ctx.fillStyle = 'rgba(0, 0, 0, 0.7)';
@@ -1219,9 +1209,8 @@ document.addEventListener('DOMContentLoaded', function() {
         // Draw particles
         drawParticles();
         
-        // Draw player with special effects
+        // Draw player
         if (player.shield) {
-            // Shield effect
             ctx.save();
             ctx.globalAlpha = 0.6;
             ctx.strokeStyle = '#00FFFF';
@@ -1233,7 +1222,6 @@ document.addEventListener('DOMContentLoaded', function() {
         }
         
         if (player.magnetRange > 0) {
-            // Magnet field effect
             ctx.save();
             ctx.globalAlpha = 0.2;
             ctx.strokeStyle = '#FFD700';
@@ -1244,25 +1232,21 @@ document.addEventListener('DOMContentLoaded', function() {
             ctx.restore();
         }
         
-        // Draw player
         ctx.fillStyle = player.boosting ? '#FF4444' : player.color;
         ctx.beginPath();
         ctx.arc(player.x + player.width/2, player.y + player.height/2, 
                 player.width/2 + (player.boosting ? 5 : 0), 0, Math.PI * 2);
         ctx.fill();
         
-        // Draw player emoji
         ctx.font = '25px Arial';
         ctx.fillText(' 🏃 ', player.x, player.y + 25);
         
-        // Draw combo multiplier
         if (stats.comboMultiplier > 1) {
             ctx.font = 'bold 20px Arial';
             ctx.fillStyle = '#FFD700';
             ctx.fillText(`x${stats.comboMultiplier.toFixed(1)}`, player.x + 35, player.y + 15);
         }
         
-        // Draw boost trail (keep for desktop)
         if (player.boosting) {
             for (let i = 0; i < 3; i++) {
                 ctx.save();
@@ -1323,21 +1307,16 @@ document.addEventListener('DOMContentLoaded', function() {
         player.x = clientX - rect.left - player.width / 2;
         player.y = clientY - rect.top - player.height / 2;
         
-        // Keep player in bounds
         player.x = Math.max(0, Math.min(canvas.width - player.width, player.x));
         player.y = Math.max(0, Math.min(canvas.height - player.height, player.y));
     }
     
     // Event listeners
     function setupEventListeners() {
-        // Mouse movement
         canvas.addEventListener('mousemove', handleMove);
-        
-        // Touch movement
         canvas.addEventListener('touchmove', handleMove);
         canvas.addEventListener('touchstart', handleMove);
         
-        // Mouse boost
         canvas.addEventListener('mousedown', (e) => {
             if (gameState === 'playing' && !isTouchDevice) {
                 player.boosting = true;
@@ -1352,46 +1331,22 @@ document.addEventListener('DOMContentLoaded', function() {
             }
         });
         
-        // Prevent context menu on long press
-        canvas.addEventListener('contextmenu', (e) => {
-            e.preventDefault();
-        });
+        canvas.addEventListener('contextmenu', (e) => e.preventDefault());
         
-        // Prevent scrolling and zooming on the document
-        document.addEventListener('touchmove', (e) => {
-            e.preventDefault();
-        }, { passive: false });
+        document.addEventListener('touchmove', (e) => e.preventDefault(), { passive: false });
         
         document.addEventListener('touchstart', (e) => {
-            if (e.target === canvas) {
-                e.preventDefault();
-            }
+            if (e.target === canvas) e.preventDefault();
         }, { passive: false });
         
-        // Keyboard controls (removed pause functionality)
-        document.addEventListener('keydown', (e) => {
-            // Space key functionality removed
-        });
-        
-        // Window resize
         window.addEventListener('resize', () => {
             canvas.width = window.innerWidth;
             canvas.height = window.innerHeight;
         });
 
-        // FIX: Added event listeners for the special ability button
         const specialBtn = document.getElementById('specialBtn');
         specialBtn.addEventListener('click', activateSpecial);
         specialBtn.addEventListener('touchstart', activateSpecial);
-    }
-    
-    // Touch control functions
-    function togglePause() {
-        if (gameState === 'playing') {
-            pauseGame();
-        } else if (gameState === 'paused') {
-            resumeGame();
-        }
     }
     
     function activateSpecial(e) {
@@ -1400,18 +1355,13 @@ document.addEventListener('DOMContentLoaded', function() {
             return;
         }
         
-        // Bomb special ability
-        const bombX = player.x + player.width/2;
-        // FIX: Corrected function name from createLightning to createBomb
-        createBomb(bombX, 0); 
+        // CHANGE: Bomb now created at the player's center position
+        createBomb(player.x + player.width / 2, player.y + player.height / 2);
         
-        // Set cooldown (3 seconds)
         stats.specialCooldown = 180;
         
-        // Update cooldown button appearance
         updateSpecialButton();
         
-        // Screen flash effect
         createParticles(canvas.width/2, canvas.height/2, '#FFFF00', 20);
     }
     
@@ -1435,16 +1385,6 @@ document.addEventListener('DOMContentLoaded', function() {
         init();
     }
     
-    function pauseGame() {
-        gameState = 'paused';
-        gameRunning = false;
-    }
-    
-    function resumeGame() {
-        gameState = 'playing';
-        gameRunning = true;
-    }
-    
     function gameOver() {
         gameState = 'gameOver';
         gameRunning = false;
@@ -1455,16 +1395,13 @@ document.addEventListener('DOMContentLoaded', function() {
         document.getElementById('gameOverScreen').style.display = 'block';
     }
     
-    // Make these functions globally accessible for the onclick attributes
     window.restartGame = function() {
         document.getElementById('gameOverScreen').style.display = 'none';
         gameState = 'playing';
         gameRunning = true;
         
-        // Clear arrays
         clearGameObjects();
         
-        // Reset player position
         player.x = canvas.width / 2;
         player.y = canvas.height - 100;
         
@@ -1478,14 +1415,34 @@ document.addEventListener('DOMContentLoaded', function() {
         gameState = 'start';
         gameRunning = false;
         
-        // Clear everything
         clearGameObjects();
     }
     
-    // This function can remain global if you plan to call it from other scripts
-    window.shareScore = function() {
-        // Placeholder for sharing functionality
-        alert(`Share your score: ${stats.score}`);
+    // CHANGE: Updated shareScore function for clipboard functionality
+    window.shareScore = function(buttonElement) {
+        const textToCopy = `I scored ${stats.score} in Wexford Adventure! 🏖️ Play now!`;
+        
+        // Create a temporary textarea to hold the text
+        const textArea = document.createElement('textarea');
+        textArea.value = textToCopy;
+        document.body.appendChild(textArea);
+        
+        // Select and copy the text
+        textArea.select();
+        document.execCommand('copy');
+        
+        // Remove the temporary textarea
+        document.body.removeChild(textArea);
+        
+        // Provide user feedback on the button
+        const originalText = buttonElement.innerHTML;
+        buttonElement.innerHTML = 'Copied!';
+        buttonElement.disabled = true;
+        
+        setTimeout(() => {
+            buttonElement.innerHTML = originalText;
+            buttonElement.disabled = false;
+        }, 2000); // Revert back after 2 seconds
     }
 
     function resetStats() {
@@ -1500,19 +1457,16 @@ document.addEventListener('DOMContentLoaded', function() {
             comboTime: 0
         };
         
-        // Reset player
         player.magnetRange = 0;
         player.shield = false;
         player.shieldTime = 0;
         player.boosting = false;
         
-        // Clear power-up timers safely
         Object.keys(activePowerUps).forEach(type => {
             removePowerUpTimer(type);
         });
         activePowerUps = {};
         
-        // Clear any remaining timer elements
         const timersContainer = document.getElementById('powerUpTimers');
         if (timersContainer) {
             timersContainer.innerHTML = '';
@@ -1528,7 +1482,6 @@ document.addEventListener('DOMContentLoaded', function() {
         document.getElementById('lives').textContent = stats.lives;
         document.getElementById('location').textContent = stats.currentLocation;
         
-        // Update combo display
         const comboDisplay = document.getElementById('combo-display');
         const comboElement = document.getElementById('combo');
         
@@ -1539,30 +1492,25 @@ document.addEventListener('DOMContentLoaded', function() {
             comboDisplay.style.display = 'none';
         }
         
-        // Update special button cooldown
         if (isTouchDevice) {
             updateSpecialButton();
         }
     }
     
-    // Clear arrays function for restart
     function clearGameObjects() {
         seashells.length = 0;
         obstacles.length = 0;
         landmarks.length = 0;
         particles.length = 0;
         powerUps.length = 0;
-        lightningBolts.length = 0; // Now atomic bombs
+        lightningBolts.length = 0;
     }
     
-    // FIX: Add event listener for the start button
     document.querySelector('.start-btn').addEventListener('click', startGame);
 
-    // Initialize everything
     updateHUD();
     gameLoop(0);
 });
 </script>
 </body>
 </html>
-
